@@ -53,11 +53,7 @@ libms/
 
 ## Hệ quản trị CSDL
 
-**Nhóm chưa chốt.** Repo có sẵn hai file chạy:
 - MySQL: `run_all_mysql.sql`
-- PostgreSQL: `run_all_postgres.sql`
-
-Chốt xong thì xóa file không dùng.
 
 ## Cài đặt lần đầu
 
@@ -107,8 +103,6 @@ Nếu bị báo push lỗi do có người push trước: pull về rồi push l
 3. **Mỗi hàm, thủ tục, trigger ghi rõ BR nào** trong comment.
 4. **BR12 (phân bổ bản sao) chỉ viết một lần** trong `sp_phan_bo_ban_sao` của mảng D. Mảng B, C gọi thủ tục đó, không tự viết lại.
 5. **Trigger chỉ kiểm tra và giữ bất biến.** Logic nhiều bước đặt trong thủ tục.
-6. **Sau 2/11, muốn đổi bảng phải báo cả nhóm**, vì đổi một cột có thể làm hỏng thủ tục của người khác.
-7. **Không commit mật khẩu** database hay file cấu hình cá nhân.
 
 ## Quy ước mã dữ liệu mẫu
 
@@ -123,8 +117,6 @@ Mỗi mảng dùng khoảng mã riêng, để khóa chính không trùng và ng�
 | E | Ca trực CA0001–, thông báo TB0001– |
 
 Mảng A và B nên xong dữ liệu mẫu sớm, vì C, D, E cần mã độc giả, nhân viên và bản sao để viết dữ liệu của mình.
-
-## Việc nhóm cần chốt trước 2/11
 
 - [ ] Hệ quản trị: MySQL hay PostgreSQL
 - [ ] Giá trị liệt kê giữ có dấu (`'hoạt động'`) hay đổi sang mã không dấu (`'hoat_dong'`)
