@@ -1,7 +1,5 @@
 # LibMS – BTL2 Hệ cơ sở dữ liệu (HK261, lớp L09)
 
-Mã SQL của hệ thống quản lý thư viện trường đại học (LibMS), BTL2 môn Hệ cơ sở dữ liệu (CO2013), nhóm 5 người. Thiết kế gốc là báo cáo BTL1 (ERD, 30 lược đồ, BR01–BR31). Các thay đổi so với BTL1 ghi ở [`docs/thay_doi_so_voi_btl1.md`](docs/thay_doi_so_voi_btl1.md).
-
 **Nguyên tắc quan trọng nhất:** các file `.sql` trong repo này là bản gốc, không phải database. Mỗi người tự cài hệ quản trị trên máy và chạy `run_all` để có database giống hệt nhau. Không ai sửa bảng trực tiếp bằng giao diện (Workbench, pgAdmin), vì sửa kiểu đó không để lại dấu vết và máy người khác không có thay đổi.
 
 ## Mốc thời gian
