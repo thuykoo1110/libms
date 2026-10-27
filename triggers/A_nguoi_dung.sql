@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | triggers/A_nguoi_dung.sql
+-- Mảng A: Người dùng, thẻ, tham số
+-- Người phụ trách: Cái Ngọc Phương Thùy
+-- Nội dung: Trigger: chỉ kiểm tra và giữ bất biến, không chứa logic nhiều bước.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Nhân viên không tự quản lý mình, không tạo chu trình QUAN_LY (BR22)
+--   [ ] Nhân viên nghỉ việc thì khóa tài khoản (BR21)
+

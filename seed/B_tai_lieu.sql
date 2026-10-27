@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | seed/B_tai_lieu.sql
+-- Mảng B: Tài liệu, bản sao, nhập kho
+-- Người phụ trách: Châu Mạnh Phát
+-- Nội dung: INSERT dữ liệu mẫu, chỉ dùng mã trong khoảng của mảng mình.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Khoảng mã: TL001–TL040, tác giả TG001–, NXB NXB01–, thể loại TLO01–, khu vực KV01–KV06, NCC NCC01–NCC05, phiếu nhập PN001–
+--   [ ] Làm sớm sau A. Phủ đủ: sách in, giáo trình, luận văn (ma_nxb NULL), e-book (có đường dẫn, không bản sao); bản sao đủ 6 trạng thái; khu vực đủ 4 loại; thể loại cha-con 3 cấp; tài liệu ngừng phục vụ.
+

@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | functions/C_muon_tra.sql
+-- Mảng C: Mượn, trả, gia hạn
+-- Người phụ trách: Dương Phúc Tất Nhiên
+-- Nội dung: Hàm: tính thuộc tính dẫn xuất và giá trị dùng lại.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] fn_so_ngay_qua_han(ma_phieu_muon, stt)   -- /so_ngay_qua_han, BR25, BR27
+--   [ ] fn_so_sach_dang_muon(ma_doc_gia)         -- /so_sach_dang_muon
+

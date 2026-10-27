@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | demo/99_demo.sql
+-- Người phụ trách: Cái Ngọc Phương Thùy
+-- Kịch bản demo tại lớp (tuần 47): chạy theo luồng nghiệp vụ, mỗi bước có
+-- ca thành công và ca bị chặn đúng BR.
+-- =====================================================================
+--
+-- Kịch bản dự kiến:
+--   [ ] 1. Đăng ký độc giả mới (sp_dang_ky_doc_gia) -> thẻ tự cấp
+--   [ ] 2. Lập phiếu nhập (sp_lap_phieu_nhap) -> bản sao tự sinh
+--   [ ] 3. Mượn sách thành công; mượn bị chặn vì quá hạn mức, nợ phạt (BR06, BR10)
+--   [ ] 4. Đặt trước khi hết bản sao; trả sách -> bản sao chuyển giữ chỗ (BR12, BR13)
+--   [ ] 5. Trả trễ -> phiếu phạt quá hạn; báo mất -> phiếu phạt mất (BR15, BR27)
+--   [ ] 6. Thu phạt; thử sửa phiếu đã thu -> bị chặn (BR17)
+--   [ ] 7. Truy vấn thống kê FR31–FR36

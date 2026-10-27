@@ -1,0 +1,23 @@
+-- =====================================================================
+-- LibMS | schema/A_nguoi_dung.sql
+-- Mảng A: Người dùng, thẻ, tham số
+-- Người phụ trách: Cái Ngọc Phương Thùy
+-- Nội dung: CREATE TABLE (PK, UQ, NOT NULL, CHECK một dòng). KHÔNG khai báo FOREIGN KEY ở đây.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] CREATE TABLE NGUOI_DUNG
+--   [ ] CREATE TABLE NGUOI_DUNG_SDT
+--   [ ] CREATE TABLE DIA_CHI_LIEN_HE
+--   [ ] CREATE TABLE DOC_GIA
+--   [ ] CREATE TABLE SINH_VIEN
+--   [ ] CREATE TABLE GIANG_VIEN
+--   [ ] CREATE TABLE CAN_BO_TRUONG (mới, M1)
+--   [ ] CREATE TABLE NHAN_VIEN
+--   [ ] CREATE TABLE THE_THU_VIEN
+--   [ ] CREATE TABLE THAM_SO_HE_THONG
+

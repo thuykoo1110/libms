@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | triggers/D_dat_truoc_phat.sql
+-- Mảng D: Đặt trước, phạt, đánh giá
+-- Người phụ trách: Nguyễn Khang Kỳ
+-- Nội dung: Trigger: chỉ kiểm tra và giữ bất biến, không chứa logic nhiều bước.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Phiếu phạt đã thu không được sửa so_tien, loai_phat (BR17)
+--   [ ] Bản sao 'đang giữ chỗ' khi và chỉ khi có đúng một DAT_TRUOC 'sẵn sàng nhận' trỏ tới (BR30)
+

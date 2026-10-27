@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | seed/D_dat_truoc_phat.sql
+-- Mảng D: Đặt trước, phạt, đánh giá
+-- Người phụ trách: Nguyễn Khang Kỳ
+-- Nội dung: INSERT dữ liệu mẫu, chỉ dùng mã trong khoảng của mảng mình.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Khoảng mã: đặt trước DT001–, phiếu phạt PP001–
+--   [ ] Phủ đủ: hàng đợi từ 3 người cho cùng tài liệu, yêu cầu sẵn sàng nhận, hết hạn, đã hủy; phiếu phạt đủ 3 loại, cả đã thu và chưa thu; một độc giả nợ trên 50.000đ; đánh giá đang hiện và bị ẩn.
+

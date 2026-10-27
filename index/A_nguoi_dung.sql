@@ -1,0 +1,14 @@
+-- =====================================================================
+-- LibMS | index/A_nguoi_dung.sql
+-- Mảng A: Người dùng, thẻ, tham số
+-- Người phụ trách: Cái Ngọc Phương Thùy
+-- Nội dung: CREATE INDEX, mỗi index ghi rõ phục vụ truy vấn nào.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Chỉ mục cho các truy vấn hay dùng của mảng, ghi lý do chọn cột và thứ tự cột
+

@@ -1,0 +1,17 @@
+-- =====================================================================
+-- LibMS | functions/D_dat_truoc_phat.sql
+-- Mảng D: Đặt trước, phạt, đánh giá
+-- Người phụ trách: Nguyễn Khang Kỳ
+-- Nội dung: Hàm: tính thuộc tính dẫn xuất và giá trị dùng lại.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] fn_thu_tu_hang_doi(ma_dat_truoc)   -- /thu_tu_hang_doi
+--   [ ] fn_tong_no_phat(ma_doc_gia)        -- /tong_no_phat, dùng cho BR10
+--   [ ] fn_phat_tam_tinh(ma_doc_gia)       -- phạt tạm tính, chỉ hiển thị (BR29)
+--   [ ] fn_diem_danh_gia_tb(ma_tai_lieu)   -- /diem_danh_gia_trung_binh, chỉ đánh giá đang hiện
+

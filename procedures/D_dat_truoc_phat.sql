@@ -1,0 +1,21 @@
+-- =====================================================================
+-- LibMS | procedures/D_dat_truoc_phat.sql
+-- Mảng D: Đặt trước, phạt, đánh giá
+-- Người phụ trách: Nguyễn Khang Kỳ
+-- Nội dung: Thủ tục: logic nghiệp vụ nhiều bước, chạy trong transaction.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] sp_phan_bo_ban_sao   -- BR12, DÙNG CHUNG: B và C gọi, không tự viết lại
+--   [ ] sp_dat_truoc         -- FR15 (BR13)
+--   [ ] sp_huy_dat_truoc     -- FR16
+--   [ ] sp_het_han_giu_cho   -- FR17, chạy định kỳ (BR14)
+--   [ ] sp_lap_phieu_phat    -- FR18 (BR15, BR16, BR27)
+--   [ ] sp_thu_phat          -- FR19 (BR17, BR30, BR34)
+--   [ ] sp_huy_phieu_phat    -- S2: chỉ hủy phiếu chưa thu
+--   [ ] sp_danh_gia          -- FR21 (BR18)
+

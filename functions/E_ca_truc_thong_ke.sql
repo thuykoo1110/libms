@@ -1,0 +1,14 @@
+-- =====================================================================
+-- LibMS | functions/E_ca_truc_thong_ke.sql
+-- Mảng E: Ca trực, thông báo, thống kê
+-- Người phụ trách: Lê Quốc Linh
+-- Nội dung: Hàm: tính thuộc tính dẫn xuất và giá trị dùng lại.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] (Mảng này chưa có hàm riêng; thêm nếu cần)
+

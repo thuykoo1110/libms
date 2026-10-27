@@ -1,0 +1,17 @@
+-- =====================================================================
+-- LibMS | procedures/C_muon_tra.sql
+-- Mảng C: Mượn, trả, gia hạn
+-- Người phụ trách: Dương Phúc Tất Nhiên
+-- Nội dung: Thủ tục: logic nghiệp vụ nhiều bước, chạy trong transaction.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] sp_lap_phieu_muon    -- FR10 (BR05–BR10, BR24, BR34)
+--   [ ] sp_ghi_nhan_tra      -- FR11: lập phiếu phạt quá hạn bằng sp_lap_phieu_phat của D, gọi sp_phan_bo_ban_sao (BR12, BR15)
+--   [ ] sp_gia_han           -- FR12 (BR11)
+--   [ ] sp_bao_mat_hu_hong   -- FR13 (BR16, BR27)
+

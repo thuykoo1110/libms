@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | schema/C_muon_tra.sql
+-- Mảng C: Mượn, trả, gia hạn
+-- Người phụ trách: Dương Phúc Tất Nhiên
+-- Nội dung: CREATE TABLE (PK, UQ, NOT NULL, CHECK một dòng). KHÔNG khai báo FOREIGN KEY ở đây.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] CREATE TABLE PHIEU_MUON
+--   [ ] CREATE TABLE CHI_TIET_PHIEU_MUON (thêm cột người ghi nhận trả, M3)
+

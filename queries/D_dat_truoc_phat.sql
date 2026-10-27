@@ -1,0 +1,14 @@
+-- =====================================================================
+-- LibMS | queries/D_dat_truoc_phat.sql
+-- Mảng D: Đặt trước, phạt, đánh giá
+-- Người phụ trách: Nguyễn Khang Kỳ
+-- Nội dung: Truy vấn cho từng FR, mỗi truy vấn ghi FR, đầu vào, đầu ra.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Truy vấn cho FR15–FR22
+

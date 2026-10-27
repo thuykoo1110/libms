@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | seed/C_muon_tra.sql
+-- Mảng C: Mượn, trả, gia hạn
+-- Người phụ trách: Dương Phúc Tất Nhiên
+-- Nội dung: INSERT dữ liệu mẫu, chỉ dùng mã trong khoảng của mảng mình.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Khoảng mã: phiếu mượn PM001–
+--   [ ] Phủ đủ: đang mượn còn hạn, đang quá hạn, đã trả đúng hạn, trả trễ, trả hư hỏng, báo mất, đã gia hạn 2 lần.
+

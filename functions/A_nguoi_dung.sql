@@ -1,0 +1,16 @@
+-- =====================================================================
+-- LibMS | functions/A_nguoi_dung.sql
+-- Mảng A: Người dùng, thẻ, tham số
+-- Người phụ trách: Cái Ngọc Phương Thùy
+-- Nội dung: Hàm: tính thuộc tính dẫn xuất và giá trị dùng lại.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] fn_tuoi(ma_nguoi_dung)                 -- /tuoi, BR25
+--   [ ] fn_tham_nien(ma_nguoi_dung)            -- /tham_nien, BR25
+--   [ ] fn_lay_tham_so(ma_tham_so, pham_vi)    -- đọc THAM_SO_HE_THONG, dùng chung cả nhóm
+

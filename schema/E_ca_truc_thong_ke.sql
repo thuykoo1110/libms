@@ -1,0 +1,16 @@
+-- =====================================================================
+-- LibMS | schema/E_ca_truc_thong_ke.sql
+-- Mảng E: Ca trực, thông báo, thống kê
+-- Người phụ trách: Lê Quốc Linh
+-- Nội dung: CREATE TABLE (PK, UQ, NOT NULL, CHECK một dòng). KHÔNG khai báo FOREIGN KEY ở đây.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] CREATE TABLE CA_TRUC
+--   [ ] CREATE TABLE PHAN_CONG
+--   [ ] CREATE TABLE THONG_BAO (chỉ khi nhóm chốt S4)
+

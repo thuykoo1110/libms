@@ -1,0 +1,16 @@
+# Hệ điều hành và trình soạn thảo
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# File tạm, log, bản sao lưu
+*.log
+*.bak
+*.tmp
+~$*
+
+# Cấu hình cá nhân (mật khẩu database...) không commit
+.env
+*.local.sql

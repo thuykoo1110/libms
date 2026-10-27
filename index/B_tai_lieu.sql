@@ -1,0 +1,14 @@
+-- =====================================================================
+-- LibMS | index/B_tai_lieu.sql
+-- Mảng B: Tài liệu, bản sao, nhập kho
+-- Người phụ trách: Châu Mạnh Phát
+-- Nội dung: CREATE INDEX, mỗi index ghi rõ phục vụ truy vấn nào.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Chỉ mục cho các truy vấn hay dùng của mảng, ghi lý do chọn cột và thứ tự cột
+

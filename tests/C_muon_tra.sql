@@ -1,0 +1,14 @@
+-- =====================================================================
+-- LibMS | tests/C_muon_tra.sql
+-- Mảng C: Mượn, trả, gia hạn
+-- Người phụ trách: Dương Phúc Tất Nhiên
+-- Nội dung: Ca thử: mỗi thủ tục ít nhất 1 ca chạy đúng và 1 ca bị chặn đúng BR.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Ca thử cho từng thủ tục, hàm, trigger của mảng C
+

@@ -1,0 +1,27 @@
+-- =====================================================================
+-- LibMS | fk/B_tai_lieu.sql
+-- Mảng B: Tài liệu, bản sao, nhập kho
+-- Người phụ trách: Châu Mạnh Phát
+-- Nội dung: ALTER TABLE ... ADD CONSTRAINT ... FOREIGN KEY cho các bảng của mảng này.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Khóa ngoại của TAI_LIEU (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của TAI_LIEU_TU_KHOA (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của TAC_GIA (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của VIET (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của NHA_XUAT_BAN (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của NXB_SDT (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của THE_LOAI (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của THUOC (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của KHU_VUC (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của BAN_SAO (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của NHA_CUNG_CAP (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của NCC_SDT (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của PHIEU_NHAP (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của CHI_TIET_PHIEU_NHAP (xem mục 3.2 báo cáo BTL1)
+

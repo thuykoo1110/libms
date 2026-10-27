@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | seed/E_ca_truc_thong_ke.sql
+-- Mảng E: Ca trực, thông báo, thống kê
+-- Người phụ trách: Lê Quốc Linh
+-- Nội dung: INSERT dữ liệu mẫu, chỉ dùng mã trong khoảng của mảng mình.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Khoảng mã: ca trực CA0001–, thông báo TB0001–
+--   [ ] Phủ đủ: 2 tuần ca trực (sáng, chiều, tối), có nhân viên trực 2 khu vực trong một ca.
+

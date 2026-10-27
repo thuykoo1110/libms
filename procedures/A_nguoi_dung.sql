@@ -1,0 +1,17 @@
+-- =====================================================================
+-- LibMS | procedures/A_nguoi_dung.sql
+-- Mảng A: Người dùng, thẻ, tham số
+-- Người phụ trách: Cái Ngọc Phương Thùy
+-- Nội dung: Thủ tục: logic nghiệp vụ nhiều bước, chạy trong transaction.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] sp_dang_ky_doc_gia   -- FR02: tạo NGUOI_DUNG + DOC_GIA + lớp con + THE_THU_VIEN trong 1 transaction (BR04, BR28)
+--   [ ] sp_gia_han_the       -- FR03 (BR28)
+--   [ ] sp_cap_lai_the       -- FR03, thẻ báo mất (S3)
+--   [ ] sp_khoa_tai_khoan    -- FR03: khóa tài khoản, hủy đặt trước còn hiệu lực bằng sp_huy_dat_truoc của D (BR05, BR14, BR21)
+

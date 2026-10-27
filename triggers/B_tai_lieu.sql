@@ -1,0 +1,17 @@
+-- =====================================================================
+-- LibMS | triggers/B_tai_lieu.sql
+-- Mảng B: Tài liệu, bản sao, nhập kho
+-- Người phụ trách: Châu Mạnh Phát
+-- Nội dung: Trigger: chỉ kiểm tra và giữ bất biến, không chứa logic nhiều bước.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Không xóa tài liệu hoặc bản sao đã có lịch sử, không ngừng phục vụ khi còn bản sao đang mượn (BR19)
+--   [ ] Thể loại cha không tạo chu trình (BR22)
+--   [ ] E-book không có bản sao, không nằm trong phiếu nhập (BR26)
+--   [ ] Bản sao luận văn không được ở khu 'mượn về' (BR32, mới)
+

@@ -1,0 +1,23 @@
+-- =====================================================================
+-- LibMS | fk/A_nguoi_dung.sql
+-- Mảng A: Người dùng, thẻ, tham số
+-- Người phụ trách: Cái Ngọc Phương Thùy
+-- Nội dung: ALTER TABLE ... ADD CONSTRAINT ... FOREIGN KEY cho các bảng của mảng này.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Khóa ngoại của NGUOI_DUNG (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của NGUOI_DUNG_SDT (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của DIA_CHI_LIEN_HE (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của DOC_GIA (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của SINH_VIEN (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của GIANG_VIEN (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của CAN_BO_TRUONG (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của NHAN_VIEN (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của THE_THU_VIEN (xem mục 3.2 báo cáo BTL1)
+--   [ ] Khóa ngoại của THAM_SO_HE_THONG (xem mục 3.2 báo cáo BTL1)
+

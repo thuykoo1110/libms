@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | procedures/E_ca_truc_thong_ke.sql
+-- Mảng E: Ca trực, thông báo, thống kê
+-- Người phụ trách: Lê Quốc Linh
+-- Nội dung: Thủ tục: logic nghiệp vụ nhiều bước, chạy trong transaction.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] sp_phan_cong       -- FR29 (BR20)
+--   [ ] sp_tao_thong_bao   -- dùng chung, gọi khi sẵn sàng nhận, sắp đến hạn, quá hạn (S4)
+

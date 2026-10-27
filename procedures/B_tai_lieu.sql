@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | procedures/B_tai_lieu.sql
+-- Mảng B: Tài liệu, bản sao, nhập kho
+-- Người phụ trách: Châu Mạnh Phát
+-- Nội dung: Thủ tục: logic nghiệp vụ nhiều bước, chạy trong transaction.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] sp_lap_phieu_nhap   -- FR28: lập phiếu + sinh bản sao, nhận khu vực và kệ làm tham số (BR23, BR24, BR26, BR31)
+--   [ ] sp_them_ban_sao     -- FR24: thêm tay, gọi sp_phan_bo_ban_sao của D (BR12)
+

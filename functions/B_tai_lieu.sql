@@ -1,0 +1,16 @@
+-- =====================================================================
+-- LibMS | functions/B_tai_lieu.sql
+-- Mảng B: Tài liệu, bản sao, nhập kho
+-- Người phụ trách: Châu Mạnh Phát
+-- Nội dung: Hàm: tính thuộc tính dẫn xuất và giá trị dùng lại.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] fn_ma_vach(ma_tai_lieu, so_thu_tu_ban_sao)   -- /ma_vach, BR25
+--   [ ] fn_so_ban_sao_con_lai(ma_tai_lieu)           -- /so_ban_sao_con_lai, không áp dụng e-book
+--   [ ] fn_tong_tien_phieu_nhap(ma_phieu_nhap)       -- /tong_tien
+

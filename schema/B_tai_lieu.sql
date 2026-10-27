@@ -1,0 +1,27 @@
+-- =====================================================================
+-- LibMS | schema/B_tai_lieu.sql
+-- Mảng B: Tài liệu, bản sao, nhập kho
+-- Người phụ trách: Châu Mạnh Phát
+-- Nội dung: CREATE TABLE (PK, UQ, NOT NULL, CHECK một dòng). KHÔNG khai báo FOREIGN KEY ở đây.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] CREATE TABLE TAI_LIEU
+--   [ ] CREATE TABLE TAI_LIEU_TU_KHOA
+--   [ ] CREATE TABLE TAC_GIA
+--   [ ] CREATE TABLE VIET
+--   [ ] CREATE TABLE NHA_XUAT_BAN
+--   [ ] CREATE TABLE NXB_SDT
+--   [ ] CREATE TABLE THE_LOAI
+--   [ ] CREATE TABLE THUOC
+--   [ ] CREATE TABLE KHU_VUC
+--   [ ] CREATE TABLE BAN_SAO
+--   [ ] CREATE TABLE NHA_CUNG_CAP
+--   [ ] CREATE TABLE NCC_SDT
+--   [ ] CREATE TABLE PHIEU_NHAP
+--   [ ] CREATE TABLE CHI_TIET_PHIEU_NHAP
+

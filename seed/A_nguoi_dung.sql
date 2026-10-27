@@ -1,0 +1,15 @@
+-- =====================================================================
+-- LibMS | seed/A_nguoi_dung.sql
+-- Mảng A: Người dùng, thẻ, tham số
+-- Người phụ trách: Cái Ngọc Phương Thùy
+-- Nội dung: INSERT dữ liệu mẫu, chỉ dùng mã trong khoảng của mảng mình.
+--
+-- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
+-- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
+-- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
+-- =====================================================================
+--
+-- Việc cần làm:
+--   [ ] Khoảng mã: ND001–ND060 (ND001–ND010 là nhân viên), thẻ TH001–TH050
+--   [ ] Làm SỚM: mảng C, D, E cần mã độc giả và nhân viên. Phủ đủ: sinh viên, giảng viên, cán bộ trường, thẻ bị khóa, thẻ báo mất, tài khoản bị khóa, nhân viên nghỉ việc, quản lý 3 cấp, đủ tham số mặc định (mục 1.3.9).
+
