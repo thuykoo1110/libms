@@ -14,3 +14,13 @@
 --   [ ] Khóa ngoại của PHAN_CONG (xem mục 3.2 báo cáo BTL1)
 --   [ ] Khóa ngoại của THONG_BAO (xem mục 3.2 báo cáo BTL1)
 
+ALTER TABLE PHAN_CONG
+    ADD CONSTRAINT fk_phan_cong_nhan_vien
+    FOREIGN KEY (ma_nv)
+    REFERENCES NHAN_VIEN (ma_nguoi_dung),
+    ADD CONSTRAINT fk_phan_cong_ca_truc
+        FOREIGN KEY (ma_ca)
+        REFERENCES CA_TRUC (ma_ca),
+    ADD CONSTRAINT fk_phan_cong_khu_vuc
+        FOREIGN KEY (ma_khu_vuc)
+        REFERENCES KHU_VUC (ma_khu_vuc);
