@@ -1,13 +1,14 @@
 create table NGUOI_DUNG (
 	ma_nguoi_dung	varchar(10)	not null,
     ho				varchar(50) not null,
-    ten_dem			varchar(50),
-    gioi_tinh		varchar(20),
+    ten_dem	  varchar(50),
+    gioi_tinh varchar(20) null,
+    ngay_sinh date null, 
     ten				varchar(50) not null,
     email			varchar(100)	not null,
     ten_dang_nhap	varchar(50)	not null,
-    mat_khau_thanh_toan	varchar(255)	not null,
-    trang_thai_tai_khoan	varchar(20)	not null,
+    mat_khau_ma_hoa varchar(255)  not null,
+    trang_thai_tai_khoan	varchar(20)	not null default 'hoat_dong',
     
     constraint pk_ma_nguoi_dung primary key (ma_nguoi_dung),
     constraint uq_nguoi_dung_email	unique (email),
@@ -86,7 +87,7 @@ create table NHAN_VIEN (
     ngay_vao_lam	date	not null,
     chuc_vu			varchar(20)	not null,
     luong_co_ban	decimal(12,0)	null,
-    trang_thai_lam_viec 	varchar(20)	not null,
+    trang_thai_lam_viec 	varchar(20)	not null default 'dang_lam',
     ma_nguoi_quan_ly		varchar(10)	null,
     
     constraint pk_nhan_vien primary key (ma_nguoi_dung),
