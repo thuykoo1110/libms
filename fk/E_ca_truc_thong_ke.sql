@@ -12,7 +12,6 @@
 -- Việc cần làm:
 --   [ ] Khóa ngoại của CA_TRUC (xem mục 3.2 báo cáo BTL1)
 --   [ ] Khóa ngoại của PHAN_CONG (xem mục 3.2 báo cáo BTL1)
---   [ ] Khóa ngoại của THONG_BAO (xem mục 3.2 báo cáo BTL1)
 
 ALTER TABLE PHAN_CONG
     ADD CONSTRAINT fk_phan_cong_nhan_vien
@@ -23,4 +22,4 @@ ALTER TABLE PHAN_CONG
         REFERENCES CA_TRUC (ma_ca),
     ADD CONSTRAINT fk_phan_cong_khu_vuc
         FOREIGN KEY (ma_khu_vuc)
-        REFERENCES KHU_VUC (ma_khu_vuc);
+        REFERENCES KHU_VUC (ma_khu_vuc);

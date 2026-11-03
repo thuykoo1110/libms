@@ -1,20 +1,3 @@
--- =====================================================================
--- LibMS | schema/D_dat_truoc_phat.sql
--- Mảng D: Đặt trước, phạt, đánh giá
--- Người phụ trách: Nguyễn Khang Kỳ
--- Nội dung: CREATE TABLE (PK, UQ, NOT NULL, CHECK một dòng). KHÔNG khai báo FOREIGN KEY ở đây.
---
--- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
--- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
--- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
--- =====================================================================
---
--- Việc cần làm:
---   [ ] CREATE TABLE DAT_TRUOC
---   [ ] CREATE TABLE PHIEU_PHAT
---   [ ] CREATE TABLE DANH_GIA
-
--- Kế thừa charset/collation database để FK khớp bảng A/B/C.
 CREATE TABLE DAT_TRUOC (
  ma_dat_truoc VARCHAR(10) PRIMARY KEY,
  ngay_dat DATETIME NOT NULL,
@@ -24,7 +7,6 @@ CREATE TABLE DAT_TRUOC (
  ma_tai_lieu VARCHAR(10) NOT NULL,
  ma_tai_lieu_giu_cho VARCHAR(10) NULL,
  so_thu_tu_giu_cho SMALLINT NULL,
-
 
  d_doc_gia_hieu_luc VARCHAR(10) GENERATED ALWAYS AS
   (CASE WHEN trang_thai IN ('đang chờ','sẵn sàng nhận') THEN ma_doc_gia ELSE NULL END) VIRTUAL,

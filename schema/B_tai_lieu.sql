@@ -1,4 +1,3 @@
---   [ ] CREATE TABLE TAI_LIEU
 CREATE TABLE TAI_LIEU (
     ma_tai_lieu VARCHAR(10),
     isbn VARCHAR(13),
@@ -17,25 +16,22 @@ CREATE TABLE TAI_LIEU (
     CONSTRAINT pk_tai_lieu PRIMARY KEY (ma_tai_lieu),
     CONSTRAINT uq_tai_lieu_isbn UNIQUE (isbn),
     
-    -- Các ràng buộc CHECK kiểm tra miền giá trị
     CONSTRAINT chk_tai_lieu_lan_tai_ban CHECK (lan_tai_ban >= 1),
     CONSTRAINT chk_tai_lieu_so_trang CHECK (so_trang >= 1),
     CONSTRAINT chk_tai_lieu_loai CHECK (loai_tai_lieu IN ('sách in', 'giáo trình', 'luận văn', 'e-book')),
     CONSTRAINT chk_tai_lieu_trang_thai CHECK (trang_thai_phuc_vu IN ('đang phục vụ', 'ngừng phục vụ')),
     CONSTRAINT chk_tai_lieu_gia_bia CHECK (gia_bia >= 0),
     
-    -- Các ràng buộc CHECK phức tạp (liên quan nhiều cột)
     CONSTRAINT chk_tai_lieu_ebook_url CHECK (loai_tai_lieu != 'e-book' OR duong_dan_dien_tu IS NOT NULL),
     CONSTRAINT chk_tai_lieu_nxb CHECK (loai_tai_lieu = 'luận văn' OR ma_nxb IS NOT NULL)
 );
 
---   [ ] CREATE TABLE TAI_LIEU_TU_KHOA
 CREATE TABLE TAI_LIEU_TU_KHOA (
     ma_tai_lieu VARCHAR(10),
     tu_khoa VARCHAR(100),
     CONSTRAINT pk_tai_lieu_tu_khoa PRIMARY KEY (ma_tai_lieu, tu_khoa)
 );
---   [ ] CREATE TABLE TAC_GIA
+
 CREATE TABLE TAC_GIA(
     ma_tac_gia VARCHAR(10),
     ho VARCHAR(50),
@@ -46,7 +42,7 @@ CREATE TABLE TAC_GIA(
     tieu_su TEXT,
     CONSTRAINT pk_tac_gia PRIMARY KEY (ma_tac_gia)
 );
---   [ ] CREATE TABLE VIET
+
 CREATE TABLE VIET(
     ma_tac_gia VARCHAR(10),
     ma_tai_lieu VARCHAR(10),
@@ -57,7 +53,7 @@ CREATE TABLE VIET(
     CONSTRAINT chk_viet_vai_tro CHECK (vai_tro IN ('tác giả chính', 'đồng tác giả', 'chủ biên', 'dịch giả')),
     CONSTRAINT chk_viet_thu_tu CHECK (thu_tu_tac_gia >= 1)
 );
---   [ ] CREATE TABLE NHA_XUAT_BAN
+
 CREATE TABLE NHA_XUAT_BAN (
     ma_nxb VARCHAR(10),
     ten_nxb VARCHAR(150) NOT NULL,
@@ -68,13 +64,13 @@ CREATE TABLE NHA_XUAT_BAN (
     tinh_thanh VARCHAR(50),
     CONSTRAINT pk_nha_xuat_ban PRIMARY KEY (ma_nxb)
 );
---   [ ] CREATE TABLE NXB_SDT
+
 CREATE TABLE NXB_SDT (
     ma_nxb VARCHAR(10),
     so_dien_thoai VARCHAR(16),
     CONSTRAINT pk_nxb_sdt PRIMARY KEY (ma_nxb, so_dien_thoai)
 );
---   [ ] CREATE TABLE THE_LOAI
+
 CREATE TABLE THE_LOAI (
     ma_the_loai VARCHAR(10),
     ten_the_loai VARCHAR(150) NOT NULL,
@@ -83,13 +79,13 @@ CREATE TABLE THE_LOAI (
     CONSTRAINT pk_the_loai PRIMARY KEY (ma_the_loai),
     CONSTRAINT chk_the_loai_cha CHECK (ma_the_loai_cha != ma_the_loai)
 );
---   [ ] CREATE TABLE THUOC
+
 CREATE TABLE THUOC (
     ma_tai_lieu VARCHAR(10),
     ma_the_loai VARCHAR(10),
     CONSTRAINT pk_thuoc PRIMARY KEY (ma_tai_lieu, ma_the_loai)
 );
---   [ ] CREATE TABLE KHU_VUC
+
 CREATE TABLE KHU_VUC (
     ma_khu_vuc VARCHAR(10),
     ten_khu_vuc VARCHAR(150) NOT NULL,
@@ -102,7 +98,6 @@ CREATE TABLE KHU_VUC (
     CONSTRAINT chk_khu_vuc_loai CHECK (loai_khu_vuc IN ('đọc tại chỗ', 'mượn về', 'tham khảo', 'luận văn'))
 );
 
---   [ ] CREATE TABLE BAN_SAO
 CREATE TABLE BAN_SAO (
     ma_tai_lieu VARCHAR(10),
     so_thu_tu_ban_sao SMALLINT,
@@ -121,7 +116,7 @@ CREATE TABLE BAN_SAO (
     CONSTRAINT chk_ban_sao_stt_nguon CHECK (stt_nhap_nguon >= 1),
     CONSTRAINT chk_ban_sao_nguon CHECK ((ma_phieu_nhap_nguon IS NULL AND stt_nhap_nguon IS NULL) OR (ma_phieu_nhap_nguon IS NOT NULL AND stt_nhap_nguon IS NOT NULL))
 );
---   [ ] CREATE TABLE NHA_CUNG_CAP
+
 CREATE TABLE NHA_CUNG_CAP (
     ma_ncc VARCHAR(10),
     ten_ncc VARCHAR(150) NOT NULL,
@@ -139,24 +134,29 @@ CREATE TABLE NHA_CUNG_CAP (
     CONSTRAINT chk_ncc_trang_thai CHECK (trang_thai_hop_tac IN ('đang hợp tác', 'ngừng hợp tác'))
 );
 
---   [ ] CREATE TABLE NCC_SDT
+
 CREATE TABLE NCC_SDT (
     ma_ncc VARCHAR(10),
     so_dien_thoai VARCHAR(16),
     CONSTRAINT pk_ncc_sdt PRIMARY KEY (ma_ncc, so_dien_thoai)
 );
 
---   [ ] CREATE TABLE PHIEU_NHAP
 CREATE TABLE PHIEU_NHAP (
     ma_phieu_nhap VARCHAR(10),
     ngay_nhap DATE NOT NULL,
+    hinh_thuc_nhap VARCHAR(20) NOT NULL DEFAULT 'mua',
     ghi_chu VARCHAR(255),
-    ma_ncc VARCHAR(10) NOT NULL,
+    ma_ncc VARCHAR(10) NULL,
     ma_nv_lap VARCHAR(10) NOT NULL,
-    CONSTRAINT pk_phieu_nhap PRIMARY KEY (ma_phieu_nhap)
+    CONSTRAINT pk_phieu_nhap PRIMARY KEY (ma_phieu_nhap),
+    CONSTRAINT chk_phieu_nhap_hinh_thuc
+        CHECK (hinh_thuc_nhap IN ('mua', 'biếu tặng', 'nộp lưu chiểu')),
+    -- mua thì bắt buộc có nhà cung cấp, biếu tặng/nộp lưu chiểu thì không
+    CONSTRAINT chk_phieu_nhap_ncc
+        CHECK ((hinh_thuc_nhap = 'mua' AND ma_ncc IS NOT NULL)
+            OR (hinh_thuc_nhap <> 'mua' AND ma_ncc IS NULL))
 );
 
---   [ ] CREATE TABLE CHI_TIET_PHIEU_NHAP
 CREATE TABLE CHI_TIET_PHIEU_NHAP (
     ma_phieu_nhap VARCHAR(10),
     stt SMALLINT,

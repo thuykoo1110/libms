@@ -8,13 +8,13 @@ create table NGUOI_DUNG (
     email			varchar(100)	not null,
     ten_dang_nhap	varchar(50)	not null,
     mat_khau_ma_hoa varchar(255)  not null,
-    trang_thai_tai_khoan	varchar(20)	not null default 'hoat_dong',
+    trang_thai_tai_khoan	varchar(20)	not null default 'hoạt động',
     
     constraint pk_ma_nguoi_dung primary key (ma_nguoi_dung),
     constraint uq_nguoi_dung_email	unique (email),
     constraint uq_nguoi_dung_ten_dang_nhap UNIQUE (ten_dang_nhap),
-    constraint chk_nguoi_dung_gioi_tinh check (gioi_tinh in ('nam', 'nu')),
-    constraint chk_nguoi_dung_trang_thai_tai_khoan check (trang_thai_tai_khoan in ('hoat_dong','khoa'))
+    constraint chk_nguoi_dung_gioi_tinh check (gioi_tinh in ('nam', 'nữ')),
+    constraint chk_nguoi_dung_trang_thai_tai_khoan check (trang_thai_tai_khoan in ('hoạt động', 'khóa'))
 )	engine = InnoDB;
 
 
@@ -35,7 +35,7 @@ create table DIA_CHI_LIEN_HE  (
     phuong_xa		varchar(100)	not null,
     tinh_thanh 		varchar(50)	not null,
     constraint pk_dia_chi_lien_he primary key (ma_nguoi_dung, loai_dia_chi, so_nha, duong, phuong_xa, tinh_thanh),
-    constraint chk_dia_chi_lien_he_local check (loai_dia_chi in ('thuong_tru', 'tam_tru'))
+    constraint chk_dia_chi_lien_he_local check (loai_dia_chi in ('thường trú', 'tạm trú'))
 ) engine = InnoDB;
 
 # DOC_GIA 
@@ -67,7 +67,7 @@ create table GIANG_VIEN(
     constraint pk_giang_vien primary key (ma_nguoi_dung),
     constraint uq_giang_vien_ma_giang_vien UNIQUE (ma_giang_vien),
     constraint chk_giang_vien_hoc_vi
-        check (hoc_vi in ('cu_nhan', 'ky_su', 'thac_si', 'tien_si'))
+        check (hoc_vi in ('cử nhân', 'kỹ sư', 'thạc sĩ', 'tiến sĩ'))
 ) engine = InnoDB;
 
 # CAN_BO_TRUONG
@@ -87,15 +87,15 @@ create table NHAN_VIEN (
     ngay_vao_lam	date	not null,
     chuc_vu			varchar(20)	not null,
     luong_co_ban	decimal(12,0)	null,
-    trang_thai_lam_viec 	varchar(20)	not null default 'dang_lam',
+    trang_thai_lam_viec 	varchar(20)	not null default 'đang làm',
     ma_nguoi_quan_ly		varchar(10)	null,
     
     constraint pk_nhan_vien primary key (ma_nguoi_dung),
     constraint uq_nhan_vien_ma_nhan_vien unique (ma_nhan_vien),
     constraint chk_nhan_vien_chuc_vu 
-		check (chuc_vu IN ('can_bo_thu_vien', 'quan_tri_vien')),
+		check (chuc_vu IN ('cán bộ thư viện', 'quản trị viên')),
 	constraint chk_nhan_vien_trang_thai_lam_viec 
-		check (trang_thai_lam_viec in  ('dang_lam', 'nghi_viec')),
+		check (trang_thai_lam_viec in  ('đang làm', 'nghỉ việc')),
 	constraint chk_nhan_vien_luong_khong_am 
 		check (luong_co_ban >= 0),
 	constraint chk_nhan_vien_khac_quan_ly  # nhân viên không tự quản lí mik 
@@ -113,7 +113,7 @@ create table THE_THU_VIEN(
     constraint pk_the_thu_vien primary key (so_the),
     constraint uq_the_thu_vien_ma_doc_gia unique (ma_doc_gia),
     constraint chk_the_thu_vien_trang_thai 
-		check (trang_thai in ('hoat_dong', 'khoa', 'bao_mat')),
+		check (trang_thai in ('hoạt động', 'khóa', 'báo mất')),
 	constraint chk_the_thu_vien_het_han_sau_cap
 		check (ngay_cap < ngay_het_han)
 ) engine = InnoDB;
@@ -127,8 +127,8 @@ CREATE TABLE THAM_SO_HE_THONG (
     mo_ta           VARCHAR(255)  NULL,                         
     CONSTRAINT pk_tham_so_he_thong PRIMARY KEY (ma_tham_so, pham_vi_ap_dung),
     CONSTRAINT chk_tham_so_pham_vi
-        CHECK (pham_vi_ap_dung IN ('sinh_vien', 'giang_vien', 'can_bo_truong',
-                                   'ca_sang', 'ca_chieu', 'ca_toi', 'tat_ca')),
+        CHECK (pham_vi_ap_dung IN ('sinh viên', 'giảng viên', 'cán bộ',
+                                   'ca sáng', 'ca chiều', 'ca tối', 'tất cả')),
     CONSTRAINT chk_tham_so_dinh_dang
         CHECK (gia_tri REGEXP '^[0-9]+([.][0-9]+)?$'
             OR gia_tri REGEXP '^[0-9]{2}:[0-9]{2}(:[0-9]{2})?$'),

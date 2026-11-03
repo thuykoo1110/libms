@@ -9,6 +9,7 @@
 DROP DATABASE IF EXISTS libms;
 CREATE DATABASE libms CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE libms;
+SET NAMES utf8mb4;   -- để chữ có dấu trong CHECK không bị lỗi font
 
 -- 1. Tạo bảng
 SOURCE schema/A_nguoi_dung.sql;

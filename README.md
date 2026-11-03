@@ -22,9 +22,9 @@ Mỗi người giữ **một mảng**. Trong mỗi thư mục, file của mảng
 | B – Tài liệu, bản sao, nhập kho | Châu Mạnh Phát | TAI_LIEU, TAI_LIEU_TU_KHOA, TAC_GIA, VIET, NHA_XUAT_BAN, NXB_SDT, THE_LOAI, THUOC, KHU_VUC, BAN_SAO, NHA_CUNG_CAP, NCC_SDT, PHIEU_NHAP, CHI_TIET_PHIEU_NHAP | 06–08, 23–28, 34–35 |
 | C – Mượn, trả, gia hạn | Dương Phúc Tất Nhiên | PHIEU_MUON, CHI_TIET_PHIEU_MUON | 09–14 |
 | D – Đặt trước, phạt, đánh giá | Nguyễn Khang Kỳ | DAT_TRUOC, PHIEU_PHAT, DANH_GIA | 15–22 |
-| E – Ca trực, thông báo, thống kê | Lê Quốc Linh | CA_TRUC, PHAN_CONG, THONG_BAO | 29–36 |
+| E – Ca trực, thống kê | Lê Quốc Linh | CA_TRUC, PHAN_CONG | 29–36 |
 
-Thùy còn giữ `run_all_*.sql`, `demo/`, `docs/`, ghép và chạy thử toàn bộ, viết báo cáo.
+Thùy còn giữ `run_all_mysql.sql`, `demo/`, ghép và chạy thử toàn bộ, viết báo cáo.
 
 ## Cấu trúc thư mục
 
@@ -40,9 +40,7 @@ libms/
 ├── queries/      truy vấn cho từng FR, chạy riêng khi demo
 ├── tests/        ca thử: đúng và bị chặn đúng BR, chạy riêng
 ├── demo/         kịch bản demo tại lớp
-├── docs/         ghi chú thiết kế, thay đổi so với BTL1
-├── run_all_mysql.sql       dựng lại CSDL từ đầu (MySQL)
-└── run_all_postgres.sql    dựng lại CSDL từ đầu (PostgreSQL)
+└── run_all_mysql.sql       dựng lại CSDL từ đầu (MySQL)
 ```
 
 **Vì sao tách khóa ngoại ra riêng:** `run_all` tạo hết bảng trước rồi mới thêm khóa ngoại, nên ai viết bảng trước cũng được, không phải lo bảng nào tạo trước.
@@ -71,11 +69,7 @@ Mở terminal tại thư mục `libms`:
 
 ```bash
 # MySQL (MySQL Workbench không chạy được lệnh SOURCE, phải dùng terminal)
-mysql -u root -p < run_all_mysql.sql
-
-# PostgreSQL (tạo database một lần trước)
-createdb -U postgres libms
-psql -U postgres -d libms -v ON_ERROR_STOP=1 -f run_all_postgres.sql
+mysql -u root -p --default-character-set=utf8mb4 < run_all_mysql.sql
 ```
 
 `run_all` **xóa database cũ rồi tạo lại từ đầu**, nên chạy bao nhiêu lần cũng được.
@@ -112,13 +106,16 @@ Mỗi mảng dùng khoảng mã riêng, để khóa chính không trùng và ng�
 | B | Tài liệu TL001–TL040, tác giả TG001–, NXB NXB01–, thể loại TLO01–, khu vực KV01–KV06, NCC NCC01–NCC05, phiếu nhập PN001– |
 | C | Phiếu mượn PM001– |
 | D | Đặt trước DT001–, phiếu phạt PP001– |
-| E | Ca trực CA0001–, thông báo TB0001– |
+| E | Ca trực CA0001– |
 
 Mảng A và B nên xong dữ liệu mẫu sớm, vì C, D, E cần mã độc giả, nhân viên và bản sao để viết dữ liệu của mình.
 
-- [ ] Hệ quản trị: MySQL hay PostgreSQL
-- [ ] Giá trị liệt kê giữ có dấu (`'hoạt động'`) hay đổi sang mã không dấu (`'hoat_dong'`)
-- [ ] S1: nhân viên thư viện mượn sách (đổi chuyên biệt hóa sang chồng lấn) hay ghi vào phạm vi
-- [ ] S4: thêm thực thể THONG_BAO hay ghi vào phạm vi
-- [ ] S5: phiếu nhập có hình thức biếu tặng, nộp lưu hay ghi vào phạm vi
-- [ ] M3: tên cột người ghi nhận trả (`ma_nv_ghi_nhan` hay `ma_nv_nhan_tra`)
+## Quyết định đã chốt
+
+- [x] Hệ quản trị: **MySQL**
+- [x] Giá trị liệt kê: **có dấu** (`'hoạt động'`), giống báo cáo
+- [x] S1: nhân viên thư viện được mượn sách, chuyên biệt hóa NGUOI_DUNG đổi sang **chồng lấn** (o), thêm BR34
+- [x] S4: **không làm** THONG_BAO, đã ghi vào phạm vi
+- [x] S5: **có làm** hình thức nhập (mua, biếu tặng, nộp lưu chiểu), `ma_ncc` chỉ bắt buộc khi mua
+- [x] M3: tên cột người ghi nhận trả là `ma_nv_nhan_tra`
+- [x] S2: phiếu phạt có trạng thái `đã hủy` kèm `ly_do_huy` (BR35)
