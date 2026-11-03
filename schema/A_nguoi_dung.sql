@@ -2,9 +2,9 @@ create table NGUOI_DUNG (
 	ma_nguoi_dung	varchar(10)	not null,
     ho				varchar(50) not null,
     ten_dem	  varchar(50),
+    ten				varchar(50) not null,
     gioi_tinh varchar(20) null,
     ngay_sinh date null, 
-    ten				varchar(50) not null,
     email			varchar(100)	not null,
     ten_dang_nhap	varchar(50)	not null,
     mat_khau_ma_hoa varchar(255)  not null,
@@ -30,11 +30,11 @@ create table NGUOI_DUNG_SDT (
 create table DIA_CHI_LIEN_HE  (
 	ma_nguoi_dung	varchar(10)	not null,
     loai_dia_chi	varchar(20)	not null,
-    so_nha			varchar(20)	null,
-    duong			varchar(100)	null,
-    phuong_xa		varchar(100)	null,
-    tinh_thanh 		varchar(50)	null,
-    constraint pk_dia_chi_lien_he primary key (ma_nguoi_dung, loai_dia_chi),
+    so_nha			varchar(20)	not null,
+    duong			varchar(100)	not null,
+    phuong_xa		varchar(100)	not null,
+    tinh_thanh 		varchar(50)	not null,
+    constraint pk_dia_chi_lien_he primary key (ma_nguoi_dung, loai_dia_chi, so_nha, duong, phuong_xa, tinh_thanh),
     constraint chk_dia_chi_lien_he_local check (loai_dia_chi in ('thuong_tru', 'tam_tru'))
 ) engine = InnoDB;
 
@@ -122,19 +122,16 @@ create table THE_THU_VIEN(
 CREATE TABLE THAM_SO_HE_THONG (
     ma_tham_so      VARCHAR(30)   NOT NULL,                           
     pham_vi_ap_dung VARCHAR(20)   NOT NULL,                           
-    gia_tri_so      DECIMAL(12,2) NULL,                              
-    gia_tri_gio     TIME          NULL,                               
+    gia_tri         VARCHAR(20)   NOT NULL,                               
     don_vi          VARCHAR(30)   NULL,                             
     mo_ta           VARCHAR(255)  NULL,                         
     CONSTRAINT pk_tham_so_he_thong PRIMARY KEY (ma_tham_so, pham_vi_ap_dung),
     CONSTRAINT chk_tham_so_pham_vi
         CHECK (pham_vi_ap_dung IN ('sinh_vien', 'giang_vien', 'can_bo_truong',
                                    'ca_sang', 'ca_chieu', 'ca_toi', 'tat_ca')),
-    CONSTRAINT chk_tham_so_mot_gia_tri                               
-        CHECK ((gia_tri_so IS NOT NULL AND gia_tri_gio IS NULL)
-            OR (gia_tri_so IS NULL AND gia_tri_gio IS NOT NULL)),
-    CONSTRAINT chk_tham_so_khong_am                                 
-        CHECK (gia_tri_so IS NULL OR gia_tri_so >= 0),
+    CONSTRAINT chk_tham_so_dinh_dang
+        CHECK (gia_tri REGEXP '^[0-9]+([.][0-9]+)?$'
+            OR gia_tri REGEXP '^[0-9]{2}:[0-9]{2}(:[0-9]{2})?$'),
     CONSTRAINT chk_tham_so_ty_le_phat_mat                           
-        CHECK (ma_tham_so <> 'TY_LE_PHAT_MAT' OR gia_tri_so >= 100)
+        CHECK (ma_tham_so <> 'TY_LE_PHAT_MAT' OR CAST(gia_tri AS DECIMAL(12,2)) >= 100)
 ) ENGINE = InnoDB;

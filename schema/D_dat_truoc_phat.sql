@@ -24,7 +24,8 @@ CREATE TABLE DAT_TRUOC (
  ma_tai_lieu VARCHAR(10) NOT NULL,
  ma_tai_lieu_giu_cho VARCHAR(10) NULL,
  so_thu_tu_giu_cho SMALLINT NULL,
- -- Cột kỹ thuật VIRTUAL để UNIQUE có điều kiện; không phải thuộc tính nghiệp vụ lưu.
+
+
  d_doc_gia_hieu_luc VARCHAR(10) GENERATED ALWAYS AS
   (CASE WHEN trang_thai IN ('đang chờ','sẵn sàng nhận') THEN ma_doc_gia ELSE NULL END) VIRTUAL,
  d_ban_sao_hieu_luc SMALLINT GENERATED ALWAYS AS
