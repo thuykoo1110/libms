@@ -46,9 +46,9 @@ Mẫu báo cáo của cô tính điểm từng người theo **các hàng mình 
 | Người (mảng) | Hàng trong Bảng kê | Điểm /20 |
 |---|---|---|
 | Thùy (A) | 1.1.a bảng phần 1 = các bảng mảng A; 2.1 thủ tục INSERT/UPDATE/DELETE trên THAM_SO_HE_THONG (FR37, M11) + demo 2.1; truy vấn GROUP BY thống kê lượt mượn theo đối tượng độc giả (FR36, M10) | 4.0 |
-| Phát (B) | 1.1.a bảng phần 2 = các bảng mảng B; 1.1.b trigger kiểm tra BR22, BR26, BR32; Hàm 2 đếm bản sao khả dụng theo thể loại kể cả thể loại con (FR07, M02); truy vấn tra cứu tài liệu (FR06, M02) | 3.75 |
+| Phát (B) | 1.1.a bảng phần 2 = các bảng mảng B; 1.1.b trigger kiểm tra BR22, BR26, BR32, BR36; Hàm 2 đếm bản sao khả dụng theo thể loại kể cả thể loại con (FR07, M02); truy vấn tra cứu tài liệu (FR06, M02) | 3.75 |
 | Nhiên (C) | 1.1.b CHECK và trigger kiểm tra mảng C (BR30, BR34); Trigger 2 trên CHI_TIET_PHIEU_MUON, ảnh hưởng BAN_SAO và DAT_TRUOC; Thủ tục 1 `sp_lap_phieu_muon` (FR10, M05); truy vấn lịch sử mượn (FR09, M04) | 4.25 |
-| Kỳ (D) | Trigger 1 trên PHIEU_PHAT (BR17, BR35); Thủ tục 2 `sp_het_han_giu_cho` (FR17, BR12, BR14); Hàm 1 `fn_phat_tam_tinh` (BR29, M04) | 4.0 |
+| Kỳ (D) | Trigger 1 trên PHIEU_PHAT (BR17, BR35); Thủ tục 2 `sp_het_han_giu_cho` (FR17, BR12, BR14, chạy hằng ngày bằng MySQL EVENT); Hàm 1 `fn_phat_tam_tinh` (BR29, M04) | 4.0 |
 | Linh (E) | 1.2 chỉ mục + demo chỉ mục; 1.1 demo tạo bảng; truy vấn GROUP BY tiền phạt theo tháng (FR33); truy vấn 2 lồng nhau + hàm gộp (FR31) | 4.0 |
 
 Yêu cầu bắt buộc của cô cho từng loại:
@@ -73,7 +73,7 @@ Code **theo đúng đặc tả giao diện M01–M12 của BTL1** (trường d�
 | Khung dự án, `db.js`, layout | A | Thùy | | Bắt buộc |
 | M01 Đăng nhập (FR01) | A | Thùy | NGUOI_DUNG, NHAN_VIEN.chuc_vu, DOC_GIA | Bắt buộc |
 | M05 Quầy mượn trả (FR10–FR13) | C | Nhiên | `sp_lap_phieu_muon`, `sp_ghi_nhan_tra`, `sp_gia_han`, `sp_bao_mat_hu_hong` | Bắt buộc |
-| M06 Tài liệu và bản sao (FR23, FR24) | B | Phát | thủ tục thêm, sửa tài liệu, `sp_them_ban_sao` | Bắt buộc |
+| M06 Tài liệu và bản sao (FR23, FR24) | B | Phát | `sp_them_tai_lieu`, `sp_cap_nhat_ban_sao`, `sp_them_ban_sao` | Bắt buộc |
 | M10 Báo cáo (FR31–FR36) | E | Linh | các truy vấn thống kê | Bắt buộc |
 | M02 Tra cứu (FR06, FR07) | B | Phát | truy vấn tra cứu, Hàm 2 | Nên có |
 | M04 Trang độc giả (FR09, FR12, FR20) | D | Kỳ | truy vấn lịch sử mượn, `fn_phat_tam_tinh`, `sp_huy_dat_truoc` | Nên có |
@@ -199,6 +199,28 @@ Mảng A và B nên xong dữ liệu mẫu sớm, vì C, D, E cần mã độc g
 - [ ] **Cả nhóm:** collation hiện tại `utf8mb4_unicode_ci` không phân biệt dấu (`'mat'` vẫn qua CHECK `IN ('mất', ...)`). Chốt giữ nguyên hay đổi sang `utf8mb4_0900_as_ci` trước khi viết seed
 - [ ] **Cả nhóm:** xác nhận bảng "Hàng trong Bảng kê nhiệm vụ" ở trên
 
+### Việc mới phát sinh từ đặc tả main 12
+
+Bản báo cáo main 12 thêm BR36, BR37 và sửa BR11, BR13, BR14, BR16, BR21, BR34, BR35 (xem phụ lục "Ghi chú thay đổi so với bản BTL1"). Các việc dưới đây không phải hàng chấm điểm riêng, nhưng thủ tục chấm điểm và ứng dụng dựa vào chúng. Mỗi người tự thêm vào danh sách việc ở đầu file của mảng mình.
+
+**B (Phát)**
+- [ ] Trigger BEFORE UPDATE trên BAN_SAO: tình trạng chỉ chuyển theo bước hợp lệ, không đổi khu vực khi đang mượn hoặc đang giữ chỗ (BR36). Gộp vào hàng 1.1.b vì phải so OLD với NEW nên CHECK không làm được
+- [ ] `sp_cap_nhat_ban_sao` cho M06: chặn sửa tay bản sao đang mượn, đang giữ chỗ; gọi `sp_phan_bo_ban_sao` khi bản sao về "sẵn sàng" ở khu mượn về (BR36, BR12, BR14)
+- [ ] `sp_them_tai_lieu` cho M06: chèn TAI_LIEU, VIET (tác giả chính), THUOC (thể loại) trong một transaction (BR37, BR26)
+
+**C (Nhiên)**
+- [ ] `sp_tim_lai_ban_sao`: sách báo mất được mang trả, hủy phiếu mất chưa thu, cập nhật dòng chi tiết bằng ngày mang trả, lập phiếu quá hạn nếu trả trễ, phân bổ bản sao (BR35, BR27, BR15). Gọi `sp_huy_phieu_phat`, `sp_lap_phieu_phat` của D
+- [ ] `sp_gia_han`: chỉ chặn khi tài liệu còn yêu cầu đặt trước "đang chờ"; nhân viên không gia hạn dòng mượn của chính mình (BR11, BR34)
+- [ ] `sp_ghi_nhan_tra`, `sp_bao_mat_hu_hong`: nhân viên ghi nhận khác độc giả của phiếu (BR34)
+
+**D (Kỳ)**
+- [ ] `sp_lap_phieu_phat`: phạt hư hỏng = MIN(mức cán bộ nhập, giá bìa, trần − phạt quá hạn), trần = tỷ lệ phạt mất × giá bìa (BR16)
+- [ ] `sp_dat_truoc`: độc giả phải thỏa BR05, BR10; không xét hạn mức BR06 (BR13)
+- [ ] `CREATE EVENT ev_het_han_giu_cho ON SCHEDULE EVERY 1 DAY DO CALL sp_het_han_giu_cho(NOW())` (BR14); thêm 1 dòng vào `run_all` sau phần thủ tục
+
+**C, D**
+- [ ] Mọi thủ tục lưu thông chỉ kiểm tra "nhân viên đang làm", không bắt buộc chức vụ cán bộ thư viện, vì quản trị viên cũng được đứng quầy (BR21)
+
 ## Quyết định đã chốt
 
 - [x] Hệ quản trị: **MySQL**
@@ -210,3 +232,4 @@ Mảng A và B nên xong dữ liệu mẫu sớm, vì C, D, E cần mã độc g
 - [x] S2: phiếu phạt có trạng thái `đã hủy` kèm `ly_do_huy` (BR35)
 - [x] Ứng dụng nộp cùng ngày **16/11**, code theo đặc tả giao diện M01–M12 của BTL1
 - [x] Thủ tục 1 chấm điểm là `sp_lap_phieu_muon` (FR10)
+- [x] Đặc tả nghiệp vụ chốt theo bản báo cáo **main 12**: thêm BR36 (bước chuyển tình trạng bản sao), BR37 (mỗi tài liệu có ít nhất 1 tác giả và 1 thể loại); `sp_tim_lai_ban_sao` thuộc mảng C
