@@ -1,15 +1,461 @@
--- =====================================================================
--- LibMS | seed/A_nguoi_dung.sql
--- Mảng A: Người dùng, thẻ, tham số
--- Người phụ trách: Cái Ngọc Phương Thùy
--- Nội dung: INSERT dữ liệu mẫu, chỉ dùng mã trong khoảng của mảng mình.
---
--- Quy tắc: chỉ người phụ trách sửa file này. Thấy lỗi thì nhắn người
--- phụ trách hoặc mở Issue trên GitHub. Giữ đúng tên bảng, tên cột trong
--- báo cáo BTL1. Mỗi hàm, thủ tục, trigger ghi rõ đang hiện thực BR nào.
--- =====================================================================
---
--- Việc cần làm:
---   [ ] Khoảng mã: ND001–ND060 (ND001–ND010 là nhân viên), thẻ TH001–TH050
---   [ ] Làm SỚM: mảng C, D, E cần mã độc giả và nhân viên. Phủ đủ: sinh viên, giảng viên, cán bộ trường, thẻ bị khóa, thẻ báo mất, tài khoản bị khóa, nhân viên nghỉ việc, quản lý 3 cấp, đủ tham số mặc định (mục 1.3.9).
 
+USE libms;
+GO
+ 
+-- Mật khẩu mặc định LibMS@2026, băm SHA-256, dạng hex chữ thường.
+DECLARE @mk varchar(64) =
+    LOWER(CONVERT(varchar(64), HASHBYTES('SHA2_256', 'LibMS@2026'), 2));
+ 
+
+-- 1. NGUOI_DUNG 
+--    ND001-ND010: nhân viên; ND011-ND040: sinh viên; ND041-ND050: giảng viên;
+--    ND051-ND058: cán bộ trường. ND004, ND009 vừa là nhân viên vừa là độc giả 
+INSERT INTO NGUOI_DUNG (ma_nguoi_dung, ho, ten_dem, ten, gioi_tinh, ngay_sinh, email, ten_dang_nhap, mat_khau_ma_hoa, trang_thai_tai_khoan) VALUES
+('ND001', 'Hồ', 'Tuấn', 'Việt', 'nam', '1998-06-21', 'viet.ho.nd001@libms.edu.vn', 'nv001', @mk, 'hoat_dong'),
+('ND002', 'Vũ', 'Hoàng', 'Vinh', 'nu', '1982-01-20', 'vinh.vu.nd002@libms.edu.vn', 'nv002', @mk, 'hoat_dong'),
+('ND003', 'Hoàng', 'Hồng', 'Hương', 'nu', '1993-03-10', 'huong.hoang.nd003@libms.edu.vn', 'nv003', @mk, 'hoat_dong'),
+('ND004', 'Dương', 'Bảo', 'Quyên', 'nu', '1994-04-18', 'quyen.duong.nd004@libms.edu.vn', 'nv004', @mk, 'hoat_dong'),
+('ND005', 'Hoàng', 'Anh', 'Sơn', 'nam', '1989-02-17', 'son.hoang.nd005@libms.edu.vn', 'nv005', @mk, 'hoat_dong'),
+('ND006', 'Phạm', 'Thanh', 'Nhi', 'nu', '1987-03-30', 'nhi.pham.nd006@libms.edu.vn', 'nv006', @mk, 'hoat_dong'),
+('ND007', 'Huỳnh', 'Gia', 'Sơn', 'nam', '1989-03-24', 'son.huynh.nd007@libms.edu.vn', 'nv007', @mk, 'hoat_dong'),
+('ND008', 'Đỗ', 'Khánh', 'Trinh', 'nu', '1998-02-25', 'trinh.do.nd008@libms.edu.vn', 'nv008', @mk, 'khoa'),
+('ND009', 'Võ', 'Tuấn', 'Sơn', 'nam', '1986-08-31', 'son.vo.nd009@libms.edu.vn', 'nv009', @mk, 'hoat_dong'),
+('ND010', 'Phan', 'Gia', 'Vinh', 'nam', '1980-07-18', 'vinh.phan.nd010@libms.edu.vn', 'nv010', @mk, 'khoa'),
+('ND011', 'Vũ', 'Phương', 'Trinh', 'nu', '2004-08-09', 'trinh.vu.nd011@libms.edu.vn', '2510001', @mk, 'hoat_dong'),
+('ND012', 'Phạm', 'Thu', 'Ngân', 'nu', '2006-04-26', 'ngan.pham.nd012@libms.edu.vn', '2510002', @mk, 'hoat_dong'),
+('ND013', 'Hoàng', 'Khánh', 'Hân', 'nu', '2005-12-15', 'han.hoang.nd013@libms.edu.vn', '2510003', @mk, 'hoat_dong'),
+('ND014', 'Huỳnh', NULL, 'Bình', 'nam', '2003-08-22', 'binh.huynh.nd014@libms.edu.vn', '2510004', @mk, 'hoat_dong'),
+('ND015', 'Dương', 'Phương', 'Oanh', 'nu', '2005-08-29', 'oanh.duong.nd015@libms.edu.vn', '2510005', @mk, 'hoat_dong'),
+('ND016', 'Trần', 'Hoàng', 'Duy', 'nam', '2003-05-23', 'duy.tran.nd016@libms.edu.vn', '2510006', @mk, 'hoat_dong'),
+('ND017', 'Hoàng', 'Quốc', 'Phúc', NULL, '2006-03-28', 'phuc.hoang.nd017@libms.edu.vn', '2510007', @mk, 'hoat_dong'),
+('ND018', 'Hồ', 'Thu', 'Chi', 'nu', '2003-03-30', 'chi.ho.nd018@libms.edu.vn', '2510008', @mk, 'hoat_dong'),
+('ND019', 'Võ', 'Văn', 'Tín', 'nam', '2003-07-12', 'tin.vo.nd019@libms.edu.vn', '2510009', @mk, 'hoat_dong'),
+('ND020', 'Hoàng', 'Đức', 'Kiệt', 'nam', '2006-12-17', 'kiet.hoang.nd020@libms.edu.vn', '2510010', @mk, 'hoat_dong'),
+('ND021', 'Dương', 'Anh', 'Thắng', 'nam', '2003-11-09', 'thang.duong.nd021@libms.edu.vn', '2510011', @mk, 'hoat_dong'),
+('ND022', 'Hồ', 'Văn', 'Huy', 'nam', '2004-09-14', 'huy.ho.nd022@libms.edu.vn', '2510012', @mk, 'hoat_dong'),
+('ND023', 'Đỗ', 'Thu', 'Hà', 'nu', '2005-01-08', 'ha.do.nd023@libms.edu.vn', '2510013', @mk, 'hoat_dong'),
+('ND024', 'Đỗ', 'Thu', 'Uyên', 'nu', '2004-08-21', 'uyen.do.nd024@libms.edu.vn', '2510014', @mk, 'hoat_dong'),
+('ND025', 'Hồ', 'Minh', 'Vinh', 'nam', '2006-03-25', 'vinh.ho.nd025@libms.edu.vn', '2510015', @mk, 'hoat_dong'),
+('ND026', 'Trần', 'Gia', 'Dũng', 'nam', '2004-02-21', 'dung.tran.nd026@libms.edu.vn', '2510016', @mk, 'hoat_dong'),
+('ND027', 'Vũ', 'Hữu', 'Tài', 'nam', '2005-04-09', 'tai.vu.nd027@libms.edu.vn', '2510017', @mk, 'hoat_dong'),
+('ND028', 'Trần', 'Văn', 'Khoa', 'nam', '2006-10-17', 'khoa.tran.nd028@libms.edu.vn', '2510018', @mk, 'hoat_dong'),
+('ND029', 'Phan', 'Hữu', 'Vinh', NULL, '2004-12-25', 'vinh.phan.nd029@libms.edu.vn', '2510019', @mk, 'hoat_dong'),
+('ND030', 'Dương', 'Thành', 'Trung', 'nam', '2006-09-23', 'trung.duong.nd030@libms.edu.vn', '2510020', @mk, 'hoat_dong'),
+('ND031', 'Võ', 'Gia', 'Đạt', 'nam', '2006-12-19', 'dat.vo.nd031@libms.edu.vn', '2510021', @mk, 'hoat_dong'),
+('ND032', 'Trần', 'Quốc', 'Thắng', 'nam', '2005-06-10', 'thang.tran.nd032@libms.edu.vn', '2510022', @mk, 'hoat_dong'),
+('ND033', 'Hồ', 'Thu', 'Hà', 'nu', '2004-05-01', 'ha.ho.nd033@libms.edu.vn', '2510023', @mk, 'khoa'),
+('ND034', 'Vũ', 'Thành', 'Vinh', 'nam', '2004-02-05', 'vinh.vu.nd034@libms.edu.vn', '2510024', @mk, 'hoat_dong'),
+('ND035', 'Lê', 'Minh', 'Bình', 'nam', '2006-12-02', 'binh.le.nd035@libms.edu.vn', '2510025', @mk, 'hoat_dong'),
+('ND036', 'Lê', 'Thanh', 'Giang', 'nu', '2005-04-22', 'giang.le.nd036@libms.edu.vn', '2510026', @mk, 'hoat_dong'),
+('ND037', 'Huỳnh', 'Thu', 'Anh', 'nu', '2006-03-16', 'anh.huynh.nd037@libms.edu.vn', '2510027', @mk, 'hoat_dong'),
+('ND038', 'Đặng', NULL, 'Tín', 'nam', '2006-06-06', 'tin.dang.nd038@libms.edu.vn', '2510028', @mk, 'hoat_dong'),
+('ND039', 'Trần', 'Thành', 'Phát', 'nam', '2003-08-27', 'phat.tran.nd039@libms.edu.vn', '2510029', @mk, 'hoat_dong'),
+('ND040', 'Vũ', 'Ngọc', 'Yến', 'nu', '2004-02-15', 'yen.vu.nd040@libms.edu.vn', '2510030', @mk, 'hoat_dong'),
+('ND041', 'Vũ', 'Tuấn', 'Dũng', 'nam', '1975-02-11', 'dung.vu.nd041@libms.edu.vn', 'gv001', @mk, 'hoat_dong'),
+('ND042', 'Hoàng', 'Ngọc', 'My', 'nu', '1987-05-13', 'my.hoang.nd042@libms.edu.vn', 'gv002', @mk, 'hoat_dong'),
+('ND043', 'Huỳnh', 'Thành', 'Long', 'nam', '1981-03-13', 'long.huynh.nd043@libms.edu.vn', 'gv003', @mk, 'hoat_dong'),
+('ND044', 'Lê', 'Khánh', 'Quyên', NULL, '1989-10-18', 'quyen.le.nd044@libms.edu.vn', 'gv004', @mk, 'hoat_dong'),
+('ND045', 'Huỳnh', 'Khánh', 'Vy', 'nu', '1983-03-29', 'vy.huynh.nd045@libms.edu.vn', 'gv005', @mk, 'hoat_dong'),
+('ND046', 'Phạm', 'Bảo', 'Yến', 'nu', '1991-10-26', 'yen.pham.nd046@libms.edu.vn', 'gv006', @mk, 'hoat_dong'),
+('ND047', 'Đặng', 'Khánh', 'Hạnh', 'nu', '1983-10-13', 'hanh.dang.nd047@libms.edu.vn', 'gv007', @mk, 'hoat_dong'),
+('ND048', 'Lê', 'Minh', 'Long', 'nam', '1991-10-30', 'long.le.nd048@libms.edu.vn', 'gv008', @mk, 'hoat_dong'),
+('ND049', 'Đỗ', 'Bảo', 'Quyên', 'nu', '1979-03-25', 'quyen.do.nd049@libms.edu.vn', 'gv009', @mk, 'hoat_dong'),
+('ND050', 'Phạm', 'Thành', 'Tín', 'nam', '1982-03-15', 'tin.pham.nd050@libms.edu.vn', 'gv010', @mk, 'hoat_dong'),
+('ND051', 'Trần', 'Hữu', 'Kiệt', 'nam', '1992-06-03', 'kiet.tran.nd051@libms.edu.vn', 'cb001', @mk, 'hoat_dong'),
+('ND052', 'Võ', 'Tuấn', 'Khang', 'nam', '1974-03-23', 'khang.vo.nd052@libms.edu.vn', 'cb002', @mk, 'hoat_dong'),
+('ND053', 'Nguyễn', 'Minh', 'Kiệt', 'nam', '1983-03-06', 'kiet.nguyen.nd053@libms.edu.vn', 'cb003', @mk, 'hoat_dong'),
+('ND054', 'Phan', 'Mai', 'Thủy', 'nu', '1977-12-08', 'thuy.phan.nd054@libms.edu.vn', 'cb004', @mk, 'hoat_dong'),
+('ND055', 'Đỗ', 'Thanh', 'Yến', 'nu', '1987-04-29', 'yen.do.nd055@libms.edu.vn', 'cb005', @mk, 'hoat_dong'),
+('ND056', 'Nguyễn', 'Phương', 'Ly', 'nu', '1977-10-16', 'ly.nguyen.nd056@libms.edu.vn', 'cb006', @mk, 'hoat_dong'),
+('ND057', 'Trần', 'Hoàng', 'Nam', 'nam', '1995-08-11', 'nam.tran.nd057@libms.edu.vn', 'cb007', @mk, 'hoat_dong'),
+('ND058', 'Ngô', 'Văn', 'Phúc', 'nam', '1975-03-13', 'phuc.ngo.nd058@libms.edu.vn', 'cb008', @mk, 'hoat_dong');
+
+
+-- 2. NGUOI_DUNG_SDT 
+INSERT INTO NGUOI_DUNG_SDT (ma_nguoi_dung, so_dien_thoai) VALUES
+('ND001', '0986873561'),
+('ND002', '0707323375'),
+('ND003', '0700686243'),
+('ND004', '0984266200'),
+('ND004', '0901834595'),
+('ND005', '0702443300'),
+('ND006', '0974620408'),
+('ND007', '0907775570'),
+('ND008', '0915032096'),
+('ND008', '0939569771'),
+('ND009', '0937742821'),
+('ND010', '0776851839'),
+('ND011', '0938340524'),
+('ND012', '0919826851'),
+('ND012', '0989736113'),
+('ND013', '0779522204'),
+('ND014', '0700222058'),
+('ND015', '0915839216'),
+('ND016', '0908762619'),
+('ND016', '0980693732'),
+('ND017', '0810886573'),
+('ND018', '0813014605'),
+('ND019', '0984940553'),
+('ND020', '0980747951'),
+('ND020', '0704052463'),
+('ND021', '0939173666'),
+('ND022', '0976482594'),
+('ND023', '0918633895'),
+('ND024', '0986456468'),
+('ND024', '0778495543'),
+('ND025', '0701571800'),
+('ND026', '0935224200'),
+('ND027', '0986498257'),
+('ND028', '0918493168'),
+('ND028', '0777754862'),
+('ND029', '0819414873'),
+('ND030', '0912239575'),
+('ND031', '0986775327'),
+('ND032', '0977857600'),
+('ND032', '0911180298'),
+('ND033', '0978420697'),
+('ND034', '0931617357'),
+('ND035', '0908936341'),
+('ND036', '0979186052'),
+('ND036', '0918085636'),
+('ND037', '0916201956'),
+('ND038', '0819325674'),
+('ND039', '0774454581'),
+('ND040', '0814694944'),
+('ND040', '0975930937'),
+('ND041', '0779184475'),
+('ND042', '0918935133'),
+('ND043', '0815718005'),
+('ND044', '0778759089'),
+('ND044', '0900063618'),
+('ND045', '0703565792'),
+('ND046', '0911120632'),
+('ND047', '0709980231'),
+('ND048', '0908255695'),
+('ND048', '0700567735'),
+('ND049', '0818102961'),
+('ND050', '0907142848'),
+('ND051', '0973259986'),
+('ND052', '0932193921'),
+('ND052', '0972439863'),
+('ND053', '0907937842'),
+('ND054', '0814497637'),
+('ND055', '0933922233'),
+('ND056', '0901629798'),
+('ND056', '0916232627'),
+('ND057', '0812969237'),
+('ND058', '0918026772');
+ 
+
+-- 3. DIA_CHI_LIEN_HE 
+INSERT INTO DIA_CHI_LIEN_HE (ma_nguoi_dung, loai_dia_chi, so_nha, duong, phuong_xa, tinh_thanh) VALUES
+('ND001', 'thuong_tru', '76', 'Võ Văn Ngân', 'Phường 4', 'Long An'),
+('ND002', 'thuong_tru', '78', 'Phạm Văn Đồng', 'Phường Hiệp Phú', 'Bình Dương'),
+('ND002', 'tam_tru', '183/1', 'Lý Thường Kiệt', 'Phường Dĩ An', 'Thành phố Hồ Chí Minh'),
+('ND003', 'thuong_tru', '220', 'Đường số 7', 'Phường Linh Trung', 'Bình Dương'),
+('ND003', 'tam_tru', '167/1', 'Lê Văn Việt', 'Phường Dĩ An', 'Thành phố Hồ Chí Minh'),
+('ND004', 'thuong_tru', '68', 'Phạm Văn Đồng', 'Phường Bình Thọ', 'Lâm Đồng'),
+('ND005', 'thuong_tru', '100', 'Nguyễn Văn Cừ', 'Phường 12', 'Đồng Nai'),
+('ND006', 'thuong_tru', '90', 'Lý Thường Kiệt', 'Phường Tân Phú', 'Thành phố Hồ Chí Minh'),
+('ND007', 'thuong_tru', '2', 'Lý Thường Kiệt', 'Phường Dĩ An', 'Đồng Nai'),
+('ND008', 'thuong_tru', '188', 'Nguyễn Văn Cừ', 'Phường Tân Phú', 'Long An'),
+('ND009', 'thuong_tru', '114', 'Hoàng Diệu', 'Phường Tân Phú', 'Đắk Lắk'),
+('ND010', 'thuong_tru', '229', 'Phạm Văn Đồng', 'Phường Hiệp Phú', 'Đồng Nai'),
+('ND011', 'thuong_tru', '63', 'Lý Thường Kiệt', 'Phường Tân Phú', 'Thành phố Hồ Chí Minh'),
+('ND012', 'thuong_tru', '209', 'Võ Văn Ngân', 'Phường Tân Phú', 'Lâm Đồng'),
+('ND012', 'tam_tru', '152/22', 'Võ Văn Ngân', 'Phường Bình Thọ', 'Thành phố Hồ Chí Minh'),
+('ND013', 'thuong_tru', '73', 'Trần Hưng Đạo', 'Phường 4', 'Thành phố Hồ Chí Minh'),
+('ND014', 'thuong_tru', '177', 'Nguyễn Văn Cừ', 'Phường Tân Phú', 'Lâm Đồng'),
+('ND015', 'thuong_tru', '53', 'Lý Thường Kiệt', 'Phường Bình Thọ', 'Bình Dương'),
+('ND015', 'tam_tru', '238/26', 'Lê Văn Việt', 'Phường Linh Trung', 'Thành phố Hồ Chí Minh'),
+('ND016', 'thuong_tru', '181', 'Lý Thường Kiệt', 'Phường Linh Trung', 'Đồng Nai'),
+('ND017', 'thuong_tru', '92', 'Cách Mạng Tháng Tám', 'Phường 7', 'Long An'),
+('ND018', 'thuong_tru', '174', 'Đường số 7', 'Phường 4', 'Thành phố Hồ Chí Minh'),
+('ND018', 'tam_tru', '202/18', 'Lê Văn Việt', 'Phường Linh Trung', 'Thành phố Hồ Chí Minh'),
+('ND019', 'thuong_tru', '218', 'Nguyễn Văn Cừ', 'Phường Dĩ An', 'Lâm Đồng'),
+('ND020', 'thuong_tru', '162', 'Lê Văn Việt', 'Phường Bình Thọ', 'Bình Dương'),
+('ND021', 'thuong_tru', '65', 'Hoàng Diệu', 'Phường 12', 'Lâm Đồng'),
+('ND021', 'tam_tru', '101/15', 'Nguyễn Thị Minh Khai', 'Phường Tân Phú', 'Thành phố Hồ Chí Minh'),
+('ND022', 'thuong_tru', '214', 'Nguyễn Văn Cừ', 'Phường 4', 'Thành phố Hồ Chí Minh'),
+('ND023', 'thuong_tru', '1', 'Nguyễn Thị Minh Khai', 'Phường 4', 'Đắk Lắk'),
+('ND024', 'thuong_tru', '128', 'Nguyễn Văn Cừ', 'Phường 12', 'Thành phố Hồ Chí Minh'),
+('ND024', 'tam_tru', '207/14', 'Cách Mạng Tháng Tám', 'Phường Linh Trung', 'Thành phố Hồ Chí Minh'),
+('ND025', 'thuong_tru', '224', 'Nguyễn Văn Cừ', 'Phường Bình Thọ', 'Đồng Nai'),
+('ND026', 'thuong_tru', '34', 'Đường số 7', 'Phường Hiệp Phú', 'Thành phố Hồ Chí Minh'),
+('ND027', 'thuong_tru', '21', 'Cách Mạng Tháng Tám', 'Phường 12', 'Đắk Lắk'),
+('ND027', 'tam_tru', '93/14', 'Lê Văn Việt', 'Phường Hiệp Phú', 'Thành phố Hồ Chí Minh'),
+('ND028', 'thuong_tru', '241', 'Phạm Văn Đồng', 'Phường Linh Trung', 'Thành phố Hồ Chí Minh'),
+('ND029', 'thuong_tru', '38', 'Cách Mạng Tháng Tám', 'Phường Bình Thọ', 'Đồng Nai'),
+('ND030', 'thuong_tru', '148', 'Nguyễn Văn Cừ', 'Phường 12', 'Bình Dương'),
+('ND030', 'tam_tru', '243/7', 'Trần Hưng Đạo', 'Phường Linh Trung', 'Thành phố Hồ Chí Minh'),
+('ND031', 'thuong_tru', '158', 'Phạm Văn Đồng', 'Phường Dĩ An', 'Đồng Nai'),
+('ND032', 'thuong_tru', '1', 'Nguyễn Văn Cừ', 'Phường 12', 'Đồng Nai'),
+('ND033', 'thuong_tru', '228', 'Phạm Văn Đồng', 'Phường 4', 'Thành phố Hồ Chí Minh'),
+('ND033', 'tam_tru', '17/14', 'Lê Văn Việt', 'Phường Dĩ An', 'Thành phố Hồ Chí Minh'),
+('ND034', 'thuong_tru', '90', 'Lê Văn Việt', 'Phường Bình Thọ', 'Bình Dương'),
+('ND035', 'thuong_tru', '166', 'Phạm Văn Đồng', 'Phường 4', 'Thành phố Hồ Chí Minh'),
+('ND036', 'thuong_tru', '246', 'Trần Hưng Đạo', 'Phường Linh Trung', 'Bình Dương'),
+('ND036', 'tam_tru', '248/8', 'Đường số 7', 'Phường Tân Phú', 'Thành phố Hồ Chí Minh'),
+('ND037', 'thuong_tru', '199', 'Nguyễn Văn Cừ', 'Phường Dĩ An', 'Đắk Lắk'),
+('ND038', 'thuong_tru', '250', 'Võ Văn Ngân', 'Phường Tân Phú', 'Thành phố Hồ Chí Minh'),
+('ND039', 'thuong_tru', '50', 'Lý Thường Kiệt', 'Phường 4', 'Thành phố Hồ Chí Minh'),
+('ND039', 'tam_tru', '239/14', 'Võ Văn Ngân', 'Phường 12', 'Thành phố Hồ Chí Minh'),
+('ND040', 'thuong_tru', '128', 'Phạm Văn Đồng', 'Phường 7', 'Bình Dương'),
+('ND041', 'thuong_tru', '82', 'Hoàng Diệu', 'Phường Hiệp Phú', 'Lâm Đồng'),
+('ND042', 'thuong_tru', '98', 'Nguyễn Văn Cừ', 'Phường Hiệp Phú', 'Lâm Đồng'),
+('ND043', 'thuong_tru', '128', 'Hoàng Diệu', 'Phường 7', 'Đồng Nai'),
+('ND044', 'thuong_tru', '108', 'Hoàng Diệu', 'Phường 4', 'Đắk Lắk'),
+('ND045', 'thuong_tru', '13', 'Hoàng Diệu', 'Phường Dĩ An', 'Long An'),
+('ND045', 'tam_tru', '48/5', 'Nguyễn Văn Cừ', 'Phường Linh Trung', 'Thành phố Hồ Chí Minh'),
+('ND046', 'thuong_tru', '102', 'Nguyễn Thị Minh Khai', 'Phường Linh Trung', 'Đắk Lắk'),
+('ND047', 'thuong_tru', '168', 'Phạm Văn Đồng', 'Phường Tân Phú', 'Bình Dương'),
+('ND048', 'thuong_tru', '241', 'Cách Mạng Tháng Tám', 'Phường Dĩ An', 'Đồng Nai'),
+('ND049', 'thuong_tru', '225', 'Hoàng Diệu', 'Phường Linh Trung', 'Long An'),
+('ND050', 'thuong_tru', '75', 'Lý Thường Kiệt', 'Phường Hiệp Phú', 'Thành phố Hồ Chí Minh'),
+('ND051', 'thuong_tru', '155', 'Cách Mạng Tháng Tám', 'Phường Dĩ An', 'Thành phố Hồ Chí Minh'),
+('ND052', 'thuong_tru', '21', 'Lê Văn Việt', 'Phường Tân Phú', 'Đồng Nai'),
+('ND053', 'thuong_tru', '70', 'Trần Hưng Đạo', 'Phường 12', 'Thành phố Hồ Chí Minh'),
+('ND054', 'thuong_tru', '238', 'Nguyễn Văn Cừ', 'Phường 12', 'Thành phố Hồ Chí Minh'),
+('ND055', 'thuong_tru', '148', 'Nguyễn Văn Cừ', 'Phường Linh Trung', 'Bình Dương'),
+('ND056', 'thuong_tru', '58', 'Đường số 7', 'Phường 4', 'Đắk Lắk'),
+('ND057', 'thuong_tru', '63', 'Lê Văn Việt', 'Phường 12', 'Thành phố Hồ Chí Minh'),
+('ND058', 'thuong_tru', '241', 'Hoàng Diệu', 'Phường 12', 'Thành phố Hồ Chí Minh');
+ 
+-- =====================================================================
+-- 4. DOC_GIA (50 độc giả: 30 sinh viên, 10 giảng viên, 10 cán bộ trường)
+-- =====================================================================
+INSERT INTO DOC_GIA (ma_nguoi_dung, ngay_dang_ky) VALUES
+('ND004', '2026-01-05'),
+('ND009', '2026-02-09'),
+('ND011', '2026-07-26'),
+('ND012', '2026-09-18'),
+('ND013', '2026-07-19'),
+('ND014', '2026-01-22'),
+('ND015', '2026-07-17'),
+('ND016', '2026-02-24'),
+('ND017', '2026-10-23'),
+('ND018', '2025-03-05'),
+('ND019', '2026-08-30'),
+('ND020', '2025-12-09'),
+('ND021', '2026-08-22'),
+('ND022', '2026-01-12'),
+('ND023', '2026-01-07'),
+('ND024', '2026-06-16'),
+('ND025', '2025-11-10'),
+('ND026', '2025-12-21'),
+('ND027', '2026-07-11'),
+('ND028', '2026-01-03'),
+('ND029', '2026-07-29'),
+('ND030', '2026-02-03'),
+('ND031', '2026-09-24'),
+('ND032', '2026-04-13'),
+('ND033', '2026-07-28'),
+('ND034', '2026-09-18'),
+('ND035', '2026-02-27'),
+('ND036', '2026-08-29'),
+('ND037', '2026-08-17'),
+('ND038', '2026-01-27'),
+('ND039', '2026-02-27'),
+('ND040', '2026-06-30'),
+('ND041', '2026-09-30'),
+('ND042', '2026-06-30'),
+('ND043', '2026-06-12'),
+('ND044', '2026-05-24'),
+('ND045', '2026-09-15'),
+('ND046', '2026-03-18'),
+('ND047', '2026-06-18'),
+('ND048', '2025-12-29'),
+('ND049', '2026-04-03'),
+('ND050', '2026-09-06'),
+('ND051', '2026-01-17'),
+('ND052', '2026-10-22'),
+('ND053', '2025-05-12'),
+('ND054', '2026-03-10'),
+('ND055', '2026-10-20'),
+('ND056', '2026-04-21'),
+('ND057', '2026-04-16'),
+('ND058', '2026-02-24');
+ 
+-- 5.1 SINH_VIEN (ND011 - ND040)
+INSERT INTO SINH_VIEN (ma_nguoi_dung, mssv, khoa, lop, nien_khoa) VALUES
+('ND011', '2510001', 'Khoa học và Kỹ thuật Máy tính', 'MT24KHM3', '2024-2028'),
+('ND012', '2510002', 'Điện - Điện tử', 'DD23CC3', '2023-2027'),
+('ND013', '2510003', 'Cơ khí', 'CK23CC3', '2023-2027'),
+('ND014', '2510004', 'Kỹ thuật Hóa học', 'HH23CC3', '2023-2027'),
+('ND015', '2510005', NULL, NULL, NULL),
+('ND016', '2510006', 'Công nghệ Vật liệu', 'VL25CC1', '2025-2029'),
+('ND017', '2510007', 'Khoa học và Kỹ thuật Máy tính', 'MT23KHM3', '2023-2027'),
+('ND018', '2510008', 'Điện - Điện tử', 'DD25CC1', '2025-2029'),
+('ND019', '2510009', 'Cơ khí', 'CK23CC1', '2023-2027'),
+('ND020', '2510010', 'Kỹ thuật Hóa học', 'HH24CC2', '2024-2028'),
+('ND021', '2510011', 'Quản lý Công nghiệp', 'QL25CC3', '2025-2029'),
+('ND022', '2510012', 'Công nghệ Vật liệu', 'VL24CC2', '2024-2028'),
+('ND023', '2510013', 'Khoa học và Kỹ thuật Máy tính', 'MT24KHM2', '2024-2028'),
+('ND024', '2510014', 'Điện - Điện tử', 'DD25CC1', '2025-2029'),
+('ND025', '2510015', 'Cơ khí', 'CK24CC3', '2024-2028'),
+('ND026', '2510016', 'Kỹ thuật Hóa học', 'HH23CC3', '2023-2027'),
+('ND027', '2510017', 'Quản lý Công nghiệp', 'QL25CC2', '2025-2029'),
+('ND028', '2510018', 'Công nghệ Vật liệu', 'VL23CC1', '2023-2027'),
+('ND029', '2510019', 'Khoa học và Kỹ thuật Máy tính', 'MT23KHM1', '2023-2027'),
+('ND030', '2510020', 'Điện - Điện tử', 'DD23CC1', '2023-2027'),
+('ND031', '2510021', 'Cơ khí', 'CK25CC2', '2025-2029'),
+('ND032', '2510022', 'Kỹ thuật Hóa học', 'HH24CC3', '2024-2028'),
+('ND033', '2510023', 'Quản lý Công nghiệp', 'QL25CC3', '2025-2029'),
+('ND034', '2510024', 'Công nghệ Vật liệu', 'VL23CC1', '2023-2027'),
+('ND035', '2510025', 'Khoa học và Kỹ thuật Máy tính', 'MT25KHM2', '2025-2029'),
+('ND036', '2510026', 'Điện - Điện tử', 'DD24CC3', '2024-2028'),
+('ND037', '2510027', 'Cơ khí', 'CK23CC1', '2023-2027'),
+('ND038', '2510028', 'Kỹ thuật Hóa học', 'HH24CC1', '2024-2028'),
+('ND039', '2510029', 'Quản lý Công nghiệp', 'QL25CC2', '2025-2029'),
+('ND040', '2510030', 'Công nghệ Vật liệu', 'VL25CC1', '2025-2029');
+ 
+-- 5.2 GIANG_VIEN (ND041 - ND050)
+INSERT INTO GIANG_VIEN (ma_nguoi_dung, ma_giang_vien, bo_mon, hoc_vi) VALUES
+('ND041', 'GV001', 'Hệ thống thông tin', 'tien_si'),
+('ND042', 'GV002', 'Khoa học máy tính', 'thac_si'),
+('ND043', 'GV003', 'Kỹ thuật phần mềm', 'thac_si'),
+('ND044', 'GV004', 'Mạng máy tính', 'tien_si'),
+('ND045', 'GV005', 'Toán ứng dụng', 'ky_su'),
+('ND046', 'GV006', 'Cơ điện tử', 'thac_si'),
+('ND047', 'GV007', 'Kỹ thuật hóa học', 'tien_si'),
+('ND048', 'GV008', 'Vật lý kỹ thuật', 'cu_nhan'),
+('ND049', 'GV009', 'Hệ thống thông tin', 'thac_si'),
+('ND050', 'GV010', 'Khoa học máy tính', 'tien_si');
+ 
+-- 5.3 CAN_BO_TRUONG (ND051 - ND058 và hai nhân viên-độc giả ND004, ND009)
+INSERT INTO CAN_BO_TRUONG (ma_nguoi_dung, ma_can_bo, don_vi_cong_tac) VALUES
+('ND051', 'CB001', 'Phòng Đào tạo'),
+('ND052', 'CB002', 'Phòng Tài chính - Kế toán'),
+('ND053', 'CB003', 'Phòng Công tác Sinh viên'),
+('ND054', 'CB004', 'Phòng Hành chính - Tổng hợp'),
+('ND055', 'CB005', 'Trung tâm Máy tính'),
+('ND056', 'CB006', 'Phòng Khoa học Công nghệ'),
+('ND057', 'CB007', 'Văn phòng Khoa Khoa học và Kỹ thuật Máy tính'),
+('ND058', 'CB008', 'Phòng Quản trị Thiết bị'),
+('ND004', 'CB009', 'Thư viện'),
+('ND009', 'CB010', 'Thư viện');
+ 
+
+-- 6. NHAN_VIEN (ND001 - ND010)
+--    Cây quản lý (QUAN_LY đệ quy): ND001 -> ND002, ND003; ND002 -> ND004, ND005, ND006, ND010;
+--    ND003 -> ND007, ND009; ND004 -> ND008.
+--    ND008, ND010 nghỉ việc và tài khoản đã khóa (BR21).
+INSERT INTO NHAN_VIEN (ma_nguoi_dung, ma_nhan_vien, ngay_vao_lam, chuc_vu, luong_co_ban, trang_thai_lam_viec, ma_nguoi_quan_ly) VALUES
+('ND001', 'NV001', '2018-08-15', 'quan_tri_vien', 24000000, 'dang_lam', NULL),
+('ND002', 'NV002', '2019-03-04', 'quan_tri_vien', 20000000, 'dang_lam', 'ND001'),
+('ND003', 'NV003', '2019-09-01', 'can_bo_thu_vien', 15000000, 'dang_lam', 'ND001'),
+('ND004', 'NV004', '2021-02-15', 'can_bo_thu_vien', 12000000, 'dang_lam', 'ND002'),
+('ND005', 'NV005', '2022-06-20', 'can_bo_thu_vien', 11000000, 'dang_lam', 'ND002'),
+('ND006', 'NV006', '2023-01-09', 'can_bo_thu_vien', 10500000, 'dang_lam', 'ND002'),
+('ND007', 'NV007', '2023-08-21', 'can_bo_thu_vien', 10000000, 'dang_lam', 'ND003'),
+('ND009', 'NV009', '2024-05-06', 'can_bo_thu_vien', 10500000, 'dang_lam', 'ND003'),
+('ND010', 'NV010', '2021-10-04', 'can_bo_thu_vien', NULL, 'nghi_viec', 'ND002'),
+('ND008', 'NV008', '2022-09-12', 'can_bo_thu_vien', 11500000, 'nghi_viec', 'ND004');
+ 
+
+-- 7. THE_THU_VIEN (TH001 - TH050), thẻ 1:1 với độc giả, hạn thẻ = ngày cấp + 12 tháng (BR28)
+--    TH008, TH043 đã hết hạn nhưng trạng thái vẫn hoat_dong;
+--    TH015 hết hạn đúng 2026-11-10; TH012, TH036 bị khóa; TH020 báo mất.
+INSERT INTO THE_THU_VIEN (so_the, ngay_cap, ngay_het_han, trang_thai, ma_doc_gia) VALUES
+('TH001', '2026-07-26', '2027-07-26', 'hoat_dong', 'ND011'),
+('TH002', '2026-09-18', '2027-09-18', 'hoat_dong', 'ND012'),
+('TH003', '2026-07-19', '2027-07-19', 'hoat_dong', 'ND013'),
+('TH004', '2026-01-22', '2027-01-22', 'hoat_dong', 'ND014'),
+('TH005', '2026-07-17', '2027-07-17', 'hoat_dong', 'ND015'),
+('TH006', '2026-02-24', '2027-02-24', 'hoat_dong', 'ND016'),
+('TH007', '2026-10-23', '2027-10-23', 'hoat_dong', 'ND017'),
+('TH008', '2025-03-05', '2026-03-05', 'hoat_dong', 'ND018'),
+('TH009', '2026-08-30', '2027-08-30', 'hoat_dong', 'ND019'),
+('TH010', '2025-12-09', '2026-12-09', 'hoat_dong', 'ND020'),
+('TH011', '2026-08-22', '2027-08-22', 'hoat_dong', 'ND021'),
+('TH012', '2026-01-12', '2027-01-12', 'khoa', 'ND022'),
+('TH013', '2026-01-07', '2027-01-07', 'hoat_dong', 'ND023'),
+('TH014', '2026-06-16', '2027-06-16', 'hoat_dong', 'ND024'),
+('TH015', '2025-11-10', '2026-11-10', 'hoat_dong', 'ND025'),
+('TH016', '2025-12-21', '2026-12-21', 'hoat_dong', 'ND026'),
+('TH017', '2026-07-11', '2027-07-11', 'hoat_dong', 'ND027'),
+('TH018', '2026-01-03', '2027-01-03', 'hoat_dong', 'ND028'),
+('TH019', '2026-07-29', '2027-07-29', 'hoat_dong', 'ND029'),
+('TH020', '2026-02-03', '2027-02-03', 'bao_mat', 'ND030'),
+('TH021', '2026-09-24', '2027-09-24', 'hoat_dong', 'ND031'),
+('TH022', '2026-04-13', '2027-04-13', 'hoat_dong', 'ND032'),
+('TH023', '2026-07-28', '2027-07-28', 'hoat_dong', 'ND033'),
+('TH024', '2026-09-18', '2027-09-18', 'hoat_dong', 'ND034'),
+('TH025', '2026-02-27', '2027-02-27', 'hoat_dong', 'ND035'),
+('TH026', '2026-08-29', '2027-08-29', 'hoat_dong', 'ND036'),
+('TH027', '2026-08-17', '2027-08-17', 'hoat_dong', 'ND037'),
+('TH028', '2026-01-27', '2027-01-27', 'hoat_dong', 'ND038'),
+('TH029', '2026-02-27', '2027-02-27', 'hoat_dong', 'ND039'),
+('TH030', '2026-06-30', '2027-06-30', 'hoat_dong', 'ND040'),
+('TH031', '2026-09-30', '2027-09-30', 'hoat_dong', 'ND041'),
+('TH032', '2026-06-30', '2027-06-30', 'hoat_dong', 'ND042'),
+('TH033', '2026-06-12', '2027-06-12', 'hoat_dong', 'ND043'),
+('TH034', '2026-05-24', '2027-05-24', 'hoat_dong', 'ND044'),
+('TH035', '2026-09-15', '2027-09-15', 'hoat_dong', 'ND045'),
+('TH036', '2026-03-18', '2027-03-18', 'khoa', 'ND046'),
+('TH037', '2026-06-18', '2027-06-18', 'hoat_dong', 'ND047'),
+('TH038', '2025-12-29', '2026-12-29', 'hoat_dong', 'ND048'),
+('TH039', '2026-04-03', '2027-04-03', 'hoat_dong', 'ND049'),
+('TH040', '2026-09-06', '2027-09-06', 'hoat_dong', 'ND050'),
+('TH041', '2026-01-17', '2027-01-17', 'hoat_dong', 'ND051'),
+('TH042', '2026-10-22', '2027-10-22', 'hoat_dong', 'ND052'),
+('TH043', '2025-05-12', '2026-05-12', 'hoat_dong', 'ND053'),
+('TH044', '2026-03-10', '2027-03-10', 'hoat_dong', 'ND054'),
+('TH045', '2026-10-20', '2027-10-20', 'hoat_dong', 'ND055'),
+('TH046', '2026-04-21', '2027-04-21', 'hoat_dong', 'ND056'),
+('TH047', '2026-04-16', '2027-04-16', 'hoat_dong', 'ND057'),
+('TH048', '2026-02-24', '2027-02-24', 'hoat_dong', 'ND058'),
+('TH049', '2026-01-05', '2027-01-05', 'hoat_dong', 'ND004'),
+('TH050', '2026-02-09', '2027-02-09', 'hoat_dong', 'ND009');
+ 
+
+-- 8. THAM_SO_HE_THONG (mục 1.3.9 của báo cáo). Khóa chính (ma_tham_so, pham_vi_ap_dung)
+INSERT INTO THAM_SO_HE_THONG (ma_tham_so, pham_vi_ap_dung, gia_tri, don_vi, mo_ta) VALUES
+('SO_CUON_TOI_DA', 'sinh_vien', '5', 'cuốn', 'Số cuốn được mượn đồng thời (BR06)'),
+('SO_CUON_TOI_DA', 'giang_vien', '10', 'cuốn', 'Số cuốn được mượn đồng thời (BR06)'),
+('SO_CUON_TOI_DA', 'can_bo', '10', 'cuốn', 'Số cuốn được mượn đồng thời (BR06)'),
+('SO_NGAY_MUON', 'sinh_vien', '14', 'ngày', 'Thời hạn mượn, han_tra = ngay_muon + giá trị (BR07)'),
+('SO_NGAY_MUON', 'giang_vien', '30', 'ngày', 'Thời hạn mượn (BR07)'),
+('SO_NGAY_MUON', 'can_bo', '30', 'ngày', 'Thời hạn mượn (BR07)'),
+('SO_LAN_GIA_HAN_TOI_DA', 'sinh_vien', '2', 'lần', 'Số lần gia hạn tối đa mỗi dòng mượn (BR11)'),
+('SO_LAN_GIA_HAN_TOI_DA', 'giang_vien', '2', 'lần', 'Số lần gia hạn tối đa mỗi dòng mượn (BR11)'),
+('SO_LAN_GIA_HAN_TOI_DA', 'can_bo', '2', 'lần', 'Số lần gia hạn tối đa mỗi dòng mượn (BR11)'),
+('MUC_PHAT_QUA_HAN', 'tat_ca', '2000', 'đồng', 'Phạt quá hạn mỗi cuốn mỗi ngày (BR15)'),
+('TY_LE_PHAT_MAT', 'tat_ca', '150', '%', 'Phạt mất sách theo % giá bìa, tối thiểu 100 (BR16, BR28)'),
+('NGUONG_NO_PHAT', 'tat_ca', '50000', 'đồng', 'Nợ phạt chưa thu vượt ngưỡng này thì chặn mượn (BR10)'),
+('SO_NGAY_GIU_CHO', 'tat_ca', '3', 'ngày', 'Số ngày giữ chỗ đặt trước (BR14)'),
+('SO_KHU_VUC_TOI_DA_MOI_CA', 'tat_ca', '2', 'khu vực', 'Số khu vực tối đa mỗi nhân viên trong một ca (BR20)'),
+('THOI_HAN_THE', 'tat_ca', '12', 'tháng', 'Thời hạn thẻ thư viện khi cấp (BR28)'),
+('GIO_BAT_DAU', 'ca_sang', '07:00', 'giờ', 'Giờ bắt đầu mặc định của ca sáng'),
+('GIO_BAT_DAU', 'ca_chieu', '12:30', 'giờ', 'Giờ bắt đầu mặc định của ca chiều'),
+('GIO_BAT_DAU', 'ca_toi', '17:00', 'giờ', 'Giờ bắt đầu mặc định của ca tối'),
+('GIO_KET_THUC', 'ca_sang', '11:30', 'giờ', 'Giờ kết thúc mặc định của ca sáng'),
+('GIO_KET_THUC', 'ca_chieu', '17:00', 'giờ', 'Giờ kết thúc mặc định của ca chiều'),
+('GIO_KET_THUC', 'ca_toi', '21:00', 'giờ', 'Giờ kết thúc mặc định của ca tối');
+
+
+-- 9. KIỂM TRA SAU KHI CHÈN 
+SELECT 'NGUOI_DUNG' AS bang, COUNT(*) AS so_dong, 58 AS mong_doi FROM NGUOI_DUNG
+UNION ALL SELECT 'NGUOI_DUNG_SDT',   COUNT(*), 72 FROM NGUOI_DUNG_SDT
+UNION ALL SELECT 'DIA_CHI_LIEN_HE',  COUNT(*), 71 FROM DIA_CHI_LIEN_HE
+UNION ALL SELECT 'DOC_GIA',          COUNT(*), 50 FROM DOC_GIA
+UNION ALL SELECT 'SINH_VIEN',        COUNT(*), 30 FROM SINH_VIEN
+UNION ALL SELECT 'GIANG_VIEN',       COUNT(*), 10 FROM GIANG_VIEN
+UNION ALL SELECT 'CAN_BO_TRUONG',    COUNT(*), 10 FROM CAN_BO_TRUONG
+UNION ALL SELECT 'NHAN_VIEN',        COUNT(*), 10 FROM NHAN_VIEN
+UNION ALL SELECT 'THE_THU_VIEN',     COUNT(*), 50 FROM THE_THU_VIEN
+UNION ALL SELECT 'THAM_SO_HE_THONG', COUNT(*), 21 FROM THAM_SO_HE_THONG;
+ 
+-- Tiếng Việt có dấu lưu đúng (không thành dấu ?)
+SELECT ma_nguoi_dung, ho, ten_dem, ten FROM NGUOI_DUNG WHERE ma_nguoi_dung IN ('ND053', 'ND054');
+ 
+-- BR04: mỗi độc giả thuộc đúng 1 lớp con. Mong đợi: 0 dòng.
+SELECT d.ma_nguoi_dung
+FROM DOC_GIA d
+WHERE (SELECT COUNT(*) FROM SINH_VIEN     s WHERE s.ma_nguoi_dung = d.ma_nguoi_dung)
+    + (SELECT COUNT(*) FROM GIANG_VIEN    g WHERE g.ma_nguoi_dung = d.ma_nguoi_dung)
+    + (SELECT COUNT(*) FROM CAN_BO_TRUONG c WHERE c.ma_nguoi_dung = d.ma_nguoi_dung) <> 1;
+ 
+-- Mật khẩu đã băm. Mong đợi: 1 giá trị duy nhất b224e966...4b80ca87, đếm 58.
+SELECT mat_khau_ma_hoa, COUNT(*) AS so_nguoi FROM NGUOI_DUNG GROUP BY mat_khau_ma_hoa;
+GO

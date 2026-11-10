@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= locals.tieuDe ? tieuDe + ' | LibMS' : 'LibMS' %></title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="thanh-tren">
+  <a class="logo" href="/trang-chu">LibMS <span>Thư viện trường đại học</span></a>
+  <% if (locals.user) { %>
+  <nav class="menu" aria-label="Màn hình">
+    <% menu.forEach(function (m) { %>
+      <a href="<%= m.url %>" class="<%= duongDan === m.url ? 'dang-chon' : '' %>" title="<%= m.ma %> | <%= m.fr %>"><%= m.ten %></a>
+    <% }) %>
+  </nav>
+  <div class="tai-khoan">
+    <span><%= user.hoTen %></span>
+    <a href="/doi-mat-khau">Đổi mật khẩu</a>
+    <form method="post" action="/dang-xuat"><button type="submit" class="lien-ket">Đăng xuất</button></form>
+  </div>
+  <% } %>
+</header>
+<main class="noi-dung">
+<% if (locals.thongBao) { %>
+  <div class="thong-bao <%= thongBao.loai === 'ok' ? 'ok' : 'loi' %>" role="alert"><%= thongBao.noiDung %></div>
+<% } %>

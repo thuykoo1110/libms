@@ -1,0 +1,17 @@
+<%- include('partials/dau') %>
+<h1>Xin chào, <%= user.hoTen %></h1>
+<p>
+  Vai trò:
+  <% if (user.vaiTro.includes('quan_tri')) { %><span class="nhan">Quản trị viên</span><% } %>
+  <% if (user.vaiTro.includes('can_bo') && !user.vaiTro.includes('quan_tri')) { %><span class="nhan">Cán bộ thư viện</span><% } %>
+  <% if (user.vaiTro.includes('doc_gia')) { %><span class="nhan">Độc giả (<%= user.loaiDocGia %>)</span><% } %>
+</p>
+<div class="luoi">
+  <% menu.forEach(function (m) { %>
+    <a class="the" href="<%= m.url %>">
+      <strong><%= m.ten %></strong>
+      <small><%= m.ma %> | <%= m.fr %></small>
+    </a>
+  <% }) %>
+</div>
+<%- include('partials/cuoi') %>

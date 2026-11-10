@@ -1,0 +1,12 @@
+<%- include('partials/dau') %>
+<h1>Đổi mật khẩu</h1>
+<form method="post" action="/doi-mat-khau" class="bieu-mau">
+  <label for="mat_khau_cu">Mật khẩu hiện tại</label>
+  <input id="mat_khau_cu" name="mat_khau_cu" type="password" required>
+  <label for="mat_khau_moi">Mật khẩu mới (tối thiểu 8 ký tự)</label>
+  <input id="mat_khau_moi" name="mat_khau_moi" type="password" minlength="8" required>
+  <label for="nhap_lai">Nhập lại mật khẩu mới</label>
+  <input id="nhap_lai" name="nhap_lai" type="password" minlength="8" required>
+  <button type="submit">Đổi mật khẩu</button>
+</form>
+<%- include('partials/cuoi') %>

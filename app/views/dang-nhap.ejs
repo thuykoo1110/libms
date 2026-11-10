@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng nhập | LibMS</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="trang-dang-nhap">
+<main class="hop-dang-nhap">
+  <h1>LibMS</h1>
+  <p class="phu-de">Hệ thống quản lý thư viện trường đại học</p>
+  <% if (locals.thongBao) { %><div class="thong-bao <%= thongBao.loai === 'ok' ? 'ok' : 'loi' %>" role="alert"><%= thongBao.noiDung %></div><% } %>
+  <% if (locals.loi) { %><div class="thong-bao loi" role="alert"><%= loi %></div><% } %>
+  <form method="post" action="/dang-nhap" autocomplete="on">
+    <label for="ten_dang_nhap">Tên đăng nhập</label>
+    <input id="ten_dang_nhap" name="ten_dang_nhap" value="<%= locals.tenDangNhap || '' %>" autofocus required>
+    <label for="mat_khau">Mật khẩu</label>
+    <input id="mat_khau" name="mat_khau" type="password" required>
+    <button type="submit">Đăng nhập</button>
+  </form>
+  <p class="ho-tro">Quên mật khẩu hoặc tài khoản bị khóa: liên hệ quầy thư viện hoặc email thuvien@libms.edu.vn.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<%- include('partials/dau') %>
+<h1><%= man.ma %> | <%= man.ten %></h1>
+<div class="chua-lam">
+  <p>Màn hình này <strong>chưa được làm</strong>.</p>
+  <ul>
+    <li>Chức năng: <%= man.fr %></li>
+    <li>Người phụ trách: mảng <%= man.mang %></li>
+    <li>Mức ưu tiên: <%= { bat_buoc: 'Bắt buộc', nen_co: 'Nên có', neu_kip: 'Nếu kịp' }[man.uuTien] %></li>
+  </ul>
+  <p>Cách làm: sao chép <code>routes/_mau.js</code> thành <code>routes/&lt;Mảng&gt;_&lt;tên&gt;.js</code>, thêm route
+     <code><%= man.url %></code>. Route thật tự thay trang này.</p>
+</div>
+<%- include('partials/cuoi') %>

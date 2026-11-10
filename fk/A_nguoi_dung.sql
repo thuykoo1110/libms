@@ -1,4 +1,6 @@
-# Thuộc tính đa trị 
+USE libms;
+GO
+-- Thuộc tính đa trị 
 ALTER TABLE NGUOI_DUNG_SDT
     ADD CONSTRAINT fk_nguoi_dung_sdt_nguoi_dung
     FOREIGN KEY (ma_nguoi_dung) REFERENCES NGUOI_DUNG (ma_nguoi_dung);
