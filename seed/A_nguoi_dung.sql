@@ -9,7 +9,7 @@ DECLARE @mk varchar(64) =
 
 -- 1. NGUOI_DUNG 
 --    ND001-ND010: nhân viên; ND011-ND040: sinh viên; ND041-ND050: giảng viên;
---    ND051-ND058: cán bộ trường. ND004, ND009 vừa là nhân viên vừa là độc giả 
+--    ND051-ND058: nhân viên khác. ND004, ND009 vừa là nhân viên vừa là độc giả 
 INSERT INTO NGUOI_DUNG (ma_nguoi_dung, ho, ten_dem, ten, gioi_tinh, ngay_sinh, email, ten_dang_nhap, mat_khau_ma_hoa, trang_thai_tai_khoan) VALUES
 ('ND001', 'Hồ', 'Tuấn', 'Việt', 'nam', '1998-06-21', 'viet.ho.nd001@libms.edu.vn', 'nv001', @mk, 'hoat_dong'),
 ('ND002', 'Vũ', 'Hoàng', 'Vinh', 'nu', '1982-01-20', 'vinh.vu.nd002@libms.edu.vn', 'nv002', @mk, 'hoat_dong'),
@@ -222,7 +222,7 @@ INSERT INTO DIA_CHI_LIEN_HE (ma_nguoi_dung, loai_dia_chi, so_nha, duong, phuong_
 ('ND058', 'thuong_tru', '241', 'Hoàng Diệu', 'Phường 12', 'Thành phố Hồ Chí Minh');
  
 -- =====================================================================
--- 4. DOC_GIA (50 độc giả: 30 sinh viên, 10 giảng viên, 10 cán bộ trường)
+-- 4. DOC_GIA (50 độc giả: 30 sinh viên, 10 giảng viên, 10 nhân viên khác)
 -- =====================================================================
 INSERT INTO DOC_GIA (ma_nguoi_dung, ngay_dang_ky) VALUES
 ('ND004', '2026-01-05'),
@@ -322,18 +322,18 @@ INSERT INTO GIANG_VIEN (ma_nguoi_dung, ma_giang_vien, bo_mon, hoc_vi) VALUES
 ('ND049', 'GV009', 'Hệ thống thông tin', 'thac_si'),
 ('ND050', 'GV010', 'Khoa học máy tính', 'tien_si');
  
--- 5.3 CAN_BO_TRUONG (ND051 - ND058 và hai nhân viên-độc giả ND004, ND009)
-INSERT INTO CAN_BO_TRUONG (ma_nguoi_dung, ma_can_bo, don_vi_cong_tac) VALUES
-('ND051', 'CB001', 'Phòng Đào tạo'),
-('ND052', 'CB002', 'Phòng Tài chính - Kế toán'),
-('ND053', 'CB003', 'Phòng Công tác Sinh viên'),
-('ND054', 'CB004', 'Phòng Hành chính - Tổng hợp'),
-('ND055', 'CB005', 'Trung tâm Máy tính'),
-('ND056', 'CB006', 'Phòng Khoa học Công nghệ'),
-('ND057', 'CB007', 'Văn phòng Khoa Khoa học và Kỹ thuật Máy tính'),
-('ND058', 'CB008', 'Phòng Quản trị Thiết bị'),
-('ND004', 'CB009', 'Thư viện'),
-('ND009', 'CB010', 'Thư viện');
+-- 5.3 NHAN_VIEN_KHAC (ND051 - ND058 và hai nhân viên-độc giả ND004, ND009)
+INSERT INTO NHAN_VIEN_KHAC (ma_nguoi_dung, ma_nhan_vien_khac, don_vi_cong_tac) VALUES
+('ND051', 'NK001', 'Phòng Đào tạo'),
+('ND052', 'NK002', 'Phòng Tài chính - Kế toán'),
+('ND053', 'NK003', 'Phòng Công tác Sinh viên'),
+('ND054', 'NK004', 'Phòng Hành chính - Tổng hợp'),
+('ND055', 'NK005', 'Trung tâm Máy tính'),
+('ND056', 'NK006', 'Phòng Khoa học Công nghệ'),
+('ND057', 'NK007', 'Văn phòng Khoa Khoa học và Kỹ thuật Máy tính'),
+('ND058', 'NK008', 'Phòng Quản trị Thiết bị'),
+('ND004', 'NK009', 'Thư viện'),
+('ND009', 'NK010', 'Thư viện');
  
 
 -- 6. NHAN_VIEN (ND001 - ND010)
@@ -413,13 +413,13 @@ INSERT INTO THE_THU_VIEN (so_the, ngay_cap, ngay_het_han, trang_thai, ma_doc_gia
 INSERT INTO THAM_SO_HE_THONG (ma_tham_so, pham_vi_ap_dung, gia_tri, don_vi, mo_ta) VALUES
 ('SO_CUON_TOI_DA', 'sinh_vien', '5', 'cuốn', 'Số cuốn được mượn đồng thời (BR06)'),
 ('SO_CUON_TOI_DA', 'giang_vien', '10', 'cuốn', 'Số cuốn được mượn đồng thời (BR06)'),
-('SO_CUON_TOI_DA', 'can_bo', '10', 'cuốn', 'Số cuốn được mượn đồng thời (BR06)'),
+('SO_CUON_TOI_DA', 'nhan_vien_khac', '10', 'cuốn', 'Số cuốn được mượn đồng thời (BR06)'),
 ('SO_NGAY_MUON', 'sinh_vien', '14', 'ngày', 'Thời hạn mượn, han_tra = ngay_muon + giá trị (BR07)'),
 ('SO_NGAY_MUON', 'giang_vien', '30', 'ngày', 'Thời hạn mượn (BR07)'),
-('SO_NGAY_MUON', 'can_bo', '30', 'ngày', 'Thời hạn mượn (BR07)'),
+('SO_NGAY_MUON', 'nhan_vien_khac', '30', 'ngày', 'Thời hạn mượn (BR07)'),
 ('SO_LAN_GIA_HAN_TOI_DA', 'sinh_vien', '2', 'lần', 'Số lần gia hạn tối đa mỗi dòng mượn (BR11)'),
 ('SO_LAN_GIA_HAN_TOI_DA', 'giang_vien', '2', 'lần', 'Số lần gia hạn tối đa mỗi dòng mượn (BR11)'),
-('SO_LAN_GIA_HAN_TOI_DA', 'can_bo', '2', 'lần', 'Số lần gia hạn tối đa mỗi dòng mượn (BR11)'),
+('SO_LAN_GIA_HAN_TOI_DA', 'nhan_vien_khac', '2', 'lần', 'Số lần gia hạn tối đa mỗi dòng mượn (BR11)'),
 ('MUC_PHAT_QUA_HAN', 'tat_ca', '2000', 'đồng', 'Phạt quá hạn mỗi cuốn mỗi ngày (BR15)'),
 ('TY_LE_PHAT_MAT', 'tat_ca', '150', '%', 'Phạt mất sách theo % giá bìa, tối thiểu 100 (BR16, BR28)'),
 ('NGUONG_NO_PHAT', 'tat_ca', '50000', 'đồng', 'Nợ phạt chưa thu vượt ngưỡng này thì chặn mượn (BR10)'),
@@ -441,7 +441,7 @@ UNION ALL SELECT 'DIA_CHI_LIEN_HE',  COUNT(*), 71 FROM DIA_CHI_LIEN_HE
 UNION ALL SELECT 'DOC_GIA',          COUNT(*), 50 FROM DOC_GIA
 UNION ALL SELECT 'SINH_VIEN',        COUNT(*), 30 FROM SINH_VIEN
 UNION ALL SELECT 'GIANG_VIEN',       COUNT(*), 10 FROM GIANG_VIEN
-UNION ALL SELECT 'CAN_BO_TRUONG',    COUNT(*), 10 FROM CAN_BO_TRUONG
+UNION ALL SELECT 'NHAN_VIEN_KHAC',   COUNT(*), 10 FROM NHAN_VIEN_KHAC
 UNION ALL SELECT 'NHAN_VIEN',        COUNT(*), 10 FROM NHAN_VIEN
 UNION ALL SELECT 'THE_THU_VIEN',     COUNT(*), 50 FROM THE_THU_VIEN
 UNION ALL SELECT 'THAM_SO_HE_THONG', COUNT(*), 21 FROM THAM_SO_HE_THONG;
@@ -454,7 +454,7 @@ SELECT d.ma_nguoi_dung
 FROM DOC_GIA d
 WHERE (SELECT COUNT(*) FROM SINH_VIEN     s WHERE s.ma_nguoi_dung = d.ma_nguoi_dung)
     + (SELECT COUNT(*) FROM GIANG_VIEN    g WHERE g.ma_nguoi_dung = d.ma_nguoi_dung)
-    + (SELECT COUNT(*) FROM CAN_BO_TRUONG c WHERE c.ma_nguoi_dung = d.ma_nguoi_dung) <> 1;
+    + (SELECT COUNT(*) FROM NHAN_VIEN_KHAC c WHERE c.ma_nguoi_dung = d.ma_nguoi_dung) <> 1;
  
 -- Mật khẩu đã băm. Mong đợi: 1 giá trị duy nhất b224e966...4b80ca87, đếm 58.
 SELECT mat_khau_ma_hoa, COUNT(*) AS so_nguoi FROM NGUOI_DUNG GROUP BY mat_khau_ma_hoa;

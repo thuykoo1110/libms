@@ -32,8 +32,8 @@ ALTER TABLE GIANG_VIEN
     ADD CONSTRAINT fk_giang_vien_doc_gia
     FOREIGN KEY (ma_nguoi_dung) REFERENCES DOC_GIA (ma_nguoi_dung);
  
-ALTER TABLE CAN_BO_TRUONG
-    ADD CONSTRAINT fk_can_bo_truong_doc_gia
+ALTER TABLE NHAN_VIEN_KHAC
+    ADD CONSTRAINT fk_nhan_vien_khac_doc_gia
     FOREIGN KEY (ma_nguoi_dung) REFERENCES DOC_GIA (ma_nguoi_dung);
  
 -- SO_HUU_THE 1:1 

@@ -1,6 +1,6 @@
 # LibMS – BTL2 Hệ cơ sở dữ liệu (HK261, lớp L09)
 
-**Nguyên tắc quan trọng nhất:** các file `.sql` trong repo này là bản gốc, không phải database. Mỗi người tự cài hệ quản trị trên máy và chạy `run_all` để có database giống hệt nhau. Không ai sửa bảng trực tiếp bằng giao diện (Workbench, pgAdmin), vì sửa kiểu đó không để lại dấu vết và máy người khác không có thay đổi.
+**Nguyên tắc quan trọng nhất:** các file `.sql` trong repo này là bản gốc, không phải database. Mỗi người tự cài hệ quản trị trên máy và chạy `run_all` để có database giống hệt nhau. Không ai sửa bảng trực tiếp bằng giao diện (Table Designer của SSMS), vì sửa kiểu đó không để lại dấu vết và máy người khác không có thay đổi.
 
 ## Mốc thời gian
 
@@ -31,13 +31,13 @@ Mỗi người giữ **một mảng**. Trong mỗi thư mục, file của mảng
 
 | Mảng | Người phụ trách | Bảng | FR |
 |---|---|---|---|
-| A – Người dùng, thẻ, tham số | Cái Ngọc Phương Thùy | NGUOI_DUNG, NGUOI_DUNG_SDT, DIA_CHI_LIEN_HE, DOC_GIA, SINH_VIEN, GIANG_VIEN, CAN_BO_TRUONG, NHAN_VIEN, THE_THU_VIEN, THAM_SO_HE_THONG | 01–05, 37 |
+| A – Người dùng, thẻ, tham số | Cái Ngọc Phương Thùy | NGUOI_DUNG, NGUOI_DUNG_SDT, DIA_CHI_LIEN_HE, DOC_GIA, SINH_VIEN, GIANG_VIEN, NHAN_VIEN_KHAC, NHAN_VIEN, THE_THU_VIEN, THAM_SO_HE_THONG | 01–05, 37 |
 | B – Tài liệu, bản sao, nhập kho | Châu Mạnh Phát | TAI_LIEU, TAI_LIEU_TU_KHOA, TAC_GIA, VIET, NHA_XUAT_BAN, NXB_SDT, THE_LOAI, THUOC, KHU_VUC, BAN_SAO, NHA_CUNG_CAP, NCC_SDT, PHIEU_NHAP, CHI_TIET_PHIEU_NHAP | 06–08, 23–28, 34–35 |
 | C – Mượn, trả, gia hạn | Dương Phúc Tất Nhiên | PHIEU_MUON, CHI_TIET_PHIEU_MUON | 09–14 |
 | D – Đặt trước, phạt, đánh giá | Nguyễn Khang Kỳ | DAT_TRUOC, PHIEU_PHAT, DANH_GIA | 15–22 |
 | E – Ca trực, thống kê | Lê Quốc Linh | CA_TRUC, PHAN_CONG | 29–36 |
 
-Thùy còn giữ `run_all_mysql.sql`, `demo/`, khung `app/`, ghép và chạy thử toàn bộ, viết báo cáo, thuyết trình.
+Thùy còn giữ file `run_all` (đang chuyển sang SQL Server), `demo/`, khung `app/`, ghép và chạy thử toàn bộ, viết báo cáo, thuyết trình.
 
 ## Hàng trong Bảng kê nhiệm vụ (đề xuất, cả nhóm xác nhận)
 
@@ -48,7 +48,7 @@ Mẫu báo cáo của cô tính điểm từng người theo **các hàng mình 
 | Thùy (A) | 1.1.a bảng phần 1 = các bảng mảng A; 2.1 thủ tục INSERT/UPDATE/DELETE trên THAM_SO_HE_THONG (FR37, M11) + demo 2.1; truy vấn GROUP BY thống kê lượt mượn theo đối tượng độc giả (FR36, M10) | 4.0 |
 | Phát (B) | 1.1.a bảng phần 2 = các bảng mảng B; 1.1.b trigger kiểm tra BR22, BR26, BR32, BR36; Hàm 2 đếm bản sao khả dụng theo thể loại kể cả thể loại con (FR07, M02); truy vấn tra cứu tài liệu (FR06, M02) | 3.75 |
 | Nhiên (C) | 1.1.b CHECK và trigger kiểm tra mảng C (BR30, BR34); Trigger 2 trên CHI_TIET_PHIEU_MUON, ảnh hưởng BAN_SAO và DAT_TRUOC; Thủ tục 1 `sp_lap_phieu_muon` (FR10, M05); truy vấn lịch sử mượn (FR09, M04) | 4.25 |
-| Kỳ (D) | Trigger 1 trên PHIEU_PHAT (BR17, BR35); Thủ tục 2 `sp_het_han_giu_cho` (FR17, BR12, BR14, chạy hằng ngày bằng MySQL EVENT); Hàm 1 `fn_phat_tam_tinh` (BR29, M04) | 4.0 |
+| Kỳ (D) | Trigger 1 trên PHIEU_PHAT (BR17, BR35); Thủ tục 2 `sp_het_han_giu_cho` (FR17, BR12, BR14, chạy hằng ngày; SQL Server không có EVENT, xem mục Hệ quản trị CSDL); Hàm 1 `fn_phat_tam_tinh` (BR29, M04) | 4.0 |
 | Linh (E) | 1.2 chỉ mục + demo chỉ mục; 1.1 demo tạo bảng; truy vấn GROUP BY tiền phạt theo tháng (FR33); truy vấn 2 lồng nhau + hàm gộp (FR31) | 4.0 |
 
 Yêu cầu bắt buộc của cô cho từng loại:
@@ -65,6 +65,8 @@ Các thủ tục, hàm khác trong danh sách việc của từng file (`sp_ghi_
 Code **theo đúng đặc tả giao diện M01–M12 của BTL1** (trường dữ liệu, nút, phần "Khác LibMS"), vì cô đối chiếu demo với mô tả đó. Màn nào có SQL ở trên thì gọi đúng thủ tục, hàm, trigger đó, không viết lại logic trong code.
 
 - **Công nghệ:** Node.js + Express + thư viện `mysql2`, giao diện HTML/EJS đơn giản.
+> **Đang chuyển:** khung `app/` hiện viết cho MySQL (`mysql2`, cổng 3306). Thùy đổi `db.js` sang thư viện `mssql` (cổng 1433, tham số dạng `@ten`, lỗi lấy từ `THROW`). Hai dòng dưới đây sẽ cập nhật theo.
+
 - **Kiến trúc:** trình duyệt → Express (route, controller) → connection pool `mysql2` → MySQL. Mọi tham số truyền bằng `?` (chống SQL injection). Lỗi `SIGNAL` từ MySQL hiện nguyên thông báo có mã BR lên màn hình.
 - **Thông tin kết nối** để trong `app/.env` (đã có trong `.gitignore`, không commit).
 
@@ -101,7 +103,7 @@ libms/
 ├── tests/        ca thử: đúng và bị chặn đúng BR, chạy riêng
 ├── demo/         kịch bản demo tại lớp
 ├── app/          ứng dụng Node.js kết nối CSDL
-└── run_all_mysql.sql       dựng lại CSDL từ đầu (MySQL)
+└── run_all_mysql.sql       bản MySQL cũ, sẽ thay bằng bản SQL Server
 ```
 
 **Vì sao tách khóa ngoại ra riêng:** `run_all` tạo hết bảng trước rồi mới thêm khóa ngoại, nên ai viết bảng trước cũng được, không phải lo bảng nào tạo trước.
@@ -110,23 +112,65 @@ libms/
 
 ## Hệ quản trị CSDL
 
-- **MySQL 8.0.18 trở lên** (hoặc 8.4 LTS): `run_all_mysql.sql`. CHECK chỉ thật sự được kiểm tra từ 8.0.16, `EXPLAIN ANALYZE` có từ 8.0.18.
+Nhóm đã đổi từ MySQL sang **Microsoft SQL Server** (11/2026). Cần **SQL Server 2019 trở lên** (bản Express hoặc Developer đều được) và **SSMS** để chạy file, chụp minh chứng.
 
-### Lưu ý khi viết SQL cho MySQL
+### Tạo database: bắt buộc dùng đúng collation
 
-Mẫu báo cáo của cô viết theo cú pháp SQL Server, nên có mấy chỗ khác:
+Ai cũng phải tạo `libms` bằng **đúng lệnh dưới đây**. Nếu tạo bằng chuột phải → New Database, SQL Server dùng collation mặc định `SQL_Latin1_General_CP1_CI_AS`. Khi đó chữ có dấu trong cột `varchar` (họ tên, địa chỉ, mô tả) bị lưu thành `?`, và ảnh minh chứng của mỗi máy sẽ khác nhau.
 
-| Vấn đề | Cách làm |
+```sql
+USE master;
+GO
+-- Xóa database cũ (nếu có), ngắt mọi kết nối đang mở vào libms
+IF DB_ID('libms') IS NOT NULL
+BEGIN
+    ALTER DATABASE libms SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE libms;
+END
+GO
+CREATE DATABASE libms COLLATE Vietnamese_100_CI_AS_SC_UTF8;
+GO
+
+-- Kiểm tra: phải ra Vietnamese_100_CI_AS_SC_UTF8 và MULTI_USER
+SELECT name, collation_name, user_access_desc
+FROM sys.databases
+WHERE name = 'libms';
+```
+
+Ý nghĩa từng phần của `Vietnamese_100_CI_AS_SC_UTF8`:
+
+| Phần | Nghĩa | Vì sao cần |
+|---|---|---|
+| `Vietnamese_100` | Quy tắc so sánh, sắp xếp tiếng Việt | `ORDER BY ten` xếp đúng thứ tự chữ Việt |
+| `CI` | Không phân biệt hoa thường | `'Hoat_Dong'` = `'hoat_dong'` khi so sánh |
+| `AS` | **Có phân biệt dấu** | `'mat'` khác `'mất'`, nên CHECK `IN (...)` kiểm tra chặt |
+| `SC` | Hỗ trợ đủ ký tự Unicode | |
+| `UTF8` | Cột `varchar` lưu dạng UTF-8 | Chữ có dấu lưu đúng mà không phải đổi sang `nvarchar` hay viết `N'...'` |
+
+Hai lưu ý:
+
+- **`varchar(n)` tính theo byte, không theo ký tự.** Một chữ có dấu như "ồ" chiếm 3 byte, nên `varchar(50)` có thể chứa ít hơn 50 chữ. Họ tên, địa chỉ vẫn dư chỗ. Cột nào chứa câu dài (mô tả, bình luận) thì để độ dài rộng.
+- **Mọi file `.sql` mở đầu bằng `USE libms; GO`.** Thiếu dòng này, chạy nhầm trong tab đang đứng ở `master` sẽ bị lỗi kiểu *Cannot find the object ...* hoặc *Invalid object name ...*.
+
+Giá trị liệt kê viết **không dấu, gạch dưới** (`'hoat_dong'`, `'sinh_vien'`, `'tat_ca'`). Dữ liệu tự do (họ tên, địa chỉ, mô tả) được viết có dấu.
+
+### Lưu ý khi chuyển code MySQL sang SQL Server
+
+| MySQL | SQL Server |
 |---|---|
-| Mẫu ghi `CREATE OR ALTER` | MySQL không có. Dùng `DROP PROCEDURE/FUNCTION/TRIGGER IF EXISTS` rồi `CREATE` |
-| Viết thủ tục, hàm, trigger | Bọc trong `DELIMITER $$ ... $$ DELIMITER ;` |
-| Báo lỗi nghiệp vụ | `SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'BR10: ...'`, luôn mở đầu bằng mã BR |
-| CHECK không dùng được `CURDATE()`, truy vấn con, dữ liệu bảng khác | Ràng buộc kiểu này (ngày sinh trước hôm nay, năm xuất bản, so với bảng khác) làm bằng trigger |
-| Trigger không được sửa chính bảng đã kích hoạt nó (lỗi 1442) | Trigger trên bảng X chỉ sửa bảng khác X |
-| Trigger không được trả kết quả SELECT (lỗi 1415) | Thủ tục nào được trigger gọi thì không có SELECT trả kết quả |
-| Hàm chỉ trả 1 giá trị | Muốn trả bảng thì viết thủ tục |
-| Lỗi 1418 khi tạo hàm | Khai báo `READS SQL DATA` hoặc `DETERMINISTIC` |
-| InnoDB tự tạo chỉ mục cho cột khóa ngoại | Không chọn chỉ mục chỉ trên 1 cột khóa ngoại cho phần 1.2, vì đã có sẵn |
+| `DROP ... IF EXISTS` + `DELIMITER $$` | `CREATE OR ALTER PROCEDURE/FUNCTION/TRIGGER`, ngăn các batch bằng `GO`. `CREATE PROCEDURE` phải là lệnh đầu tiên của batch |
+| Tham số `p_ma`, biến `DECLARE v_x` | Tham số và biến có `@`: `@ma_doc_gia`, `DECLARE @x INT` |
+| `SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'BR10: ...'` | `THROW 50010, 'BR10: ...', 1;`, thông báo vẫn mở đầu bằng mã BR. Số lỗi từ 50000 trở lên |
+| Hàm báo lỗi bằng `SIGNAL` | **Hàm không được `THROW`/`RAISERROR`, không được INSERT/UPDATE bảng.** Hàm trả NULL, thủ tục gọi hàm kiểm tra rồi `THROW` |
+| `LIMIT 1` | `SELECT TOP 1 ...`, hoặc `OFFSET ... FETCH NEXT ...` |
+| `IFNULL`, `CURDATE()`, `NOW()`, `DATE_ADD` | `ISNULL`, `CAST(GETDATE() AS date)`, `GETDATE()`, `DATEADD(day, n, ngay)` |
+| `DATEDIFF(ket_thuc, bat_dau)` | `DATEDIFF(day, bat_dau, ket_thuc)`: **thứ tự tham số ngược với MySQL** |
+| Trigger `BEFORE`, `FOR EACH ROW`, `NEW`/`OLD` | Chỉ có `AFTER` và `INSTEAD OF`. Trigger chạy **một lần cho cả câu lệnh**, dữ liệu nằm trong bảng ảo `inserted`/`deleted` (có thể nhiều dòng). Kiểm tra trong `AFTER` rồi `THROW` thì cả câu lệnh bị hủy |
+| `CREATE EVENT ... EVERY 1 DAY` | Không có. SQL Server Agent job không có ở bản Express, nên khi demo gọi `EXEC sp_het_han_giu_cho` bằng tay hoặc từ app |
+| InnoDB tự tạo chỉ mục cho cột khóa ngoại | SQL Server **không tự tạo**. Chỉ mục trên cột khóa ngoại phải tự khai |
+| UNIQUE không kèm điều kiện được | Có **filtered index**: `CREATE UNIQUE INDEX ... WHERE ngay_tra_thuc_te IS NULL` |
+| `EXPLAIN ANALYZE`, `IGNORE INDEX (idx_...)` | Bật **Include Actual Execution Plan** (Ctrl+M) và `SET STATISTICS IO, TIME ON`. Ép không dùng chỉ mục bằng `WITH (INDEX(0))` |
+| Kiểu `BOOLEAN`, `TINYINT(1)` | `BIT` |
 
 ## Cài đặt lần đầu
 
@@ -142,14 +186,12 @@ cd libms
 
 ### 2. Chạy thử
 
-Mở terminal tại thư mục `libms`:
+1. Trong SSMS, Connect vào server (`localhost` hoặc `.\SQLEXPRESS`).
+2. Chạy đoạn **tạo database** ở mục Hệ quản trị CSDL. Đoạn này xóa `libms` cũ rồi tạo lại từ đầu, nên chạy bao nhiêu lần cũng được.
+3. Mở từng file (Ctrl+O) rồi bấm F5, theo đúng thứ tự: `schema/` → `fk/` → `seed/` → `functions/` → `procedures/` → `triggers/` → `index/`. Trong mỗi thư mục, chạy theo thứ tự A → B → C → D → E.
+4. Xem tab **Messages**. Không có dòng chữ đỏ là được.
 
-```bash
-# MySQL (MySQL Workbench không chạy được lệnh SOURCE, phải dùng terminal)
-mysql -u root -p --default-character-set=utf8mb4 < run_all_mysql.sql
-```
-
-`run_all` **xóa database cũ rồi tạo lại từ đầu**, nên chạy bao nhiêu lần cũng được.
+Bản `run_all` cho SQL Server (chạy một lần bằng `sqlcmd`) đang làm.
 
 ### 3. Chạy ứng dụng
 
@@ -196,7 +238,8 @@ Mảng A và B nên xong dữ liệu mẫu sớm, vì C, D, E cần mã độc g
 
 - [ ] **C (Nhiên):** thêm CHECK `ma_nv_xu_ly <> ma_doc_gia` cho PHIEU_MUON (BR34, khai được trong CREATE TABLE); đặt tên cho các CHECK trong `schema/C_muon_tra.sql`
 - [ ] **E (Linh):** demo chỉ mục trước/sau bằng cùng một câu truy vấn, lần đầu thêm `IGNORE INDEX (idx_...)`. Cần thêm script sinh vài chục nghìn dòng riêng cho phần demo này, vì dữ liệu mẫu nhỏ thì thời gian chạy gần như không khác nhau
-- [ ] **Cả nhóm:** collation hiện tại `utf8mb4_unicode_ci` không phân biệt dấu (`'mat'` vẫn qua CHECK `IN ('mất', ...)`). Chốt giữ nguyên hay đổi sang `utf8mb4_0900_as_ci` trước khi viết seed
+- [x] **Cả nhóm:** collation chốt `Vietnamese_100_CI_AS_SC_UTF8` (có phân biệt dấu), xem mục Hệ quản trị CSDL
+- [ ] **B (Phát), D (Kỳ):** chuyển code từ MySQL sang SQL Server theo bảng lưu ý ở mục Hệ quản trị CSDL
 - [ ] **Cả nhóm:** xác nhận bảng "Hàng trong Bảng kê nhiệm vụ" ở trên
 
 ### Việc mới phát sinh từ đặc tả main 12
@@ -223,8 +266,9 @@ Bản báo cáo main 12 thêm BR36, BR37 và sửa BR11, BR13, BR14, BR16, BR21,
 
 ## Quyết định đã chốt
 
-- [x] Hệ quản trị: **MySQL**
-- [x] Giá trị liệt kê: **có dấu** (`'hoạt động'`), giống báo cáo
+- [x] Hệ quản trị: **SQL Server 2019+** (đổi từ MySQL, 11/2026), collation `Vietnamese_100_CI_AS_SC_UTF8`
+- [x] Giá trị liệt kê: **không dấu, gạch dưới** (`'hoat_dong'`), theo từ điển dữ liệu bản SQL Server (trước đây là có dấu)
+- [x] Lớp con "cán bộ trường" của DOC_GIA đổi thành **NHAN_VIEN_KHAC** (cột `ma_nhan_vien_khac`, phạm vi tham số `'nhan_vien_khac'`)
 - [x] S1: nhân viên thư viện được mượn sách, chuyên biệt hóa NGUOI_DUNG đổi sang **chồng lấn** (o), thêm BR34. Báo cáo BTL2 phải sửa câu ở mục 3.2.1 (đang ghi "rời nhau") và ghi vào bảng thay đổi ở Phụ lục
 - [x] S4: **không làm** THONG_BAO, đã ghi vào phạm vi
 - [x] S5: **có làm** hình thức nhập (mua, biếu tặng, nộp lưu chiểu), `ma_ncc` chỉ bắt buộc khi mua

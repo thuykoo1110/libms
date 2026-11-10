@@ -88,13 +88,13 @@ create table GIANG_VIEN (
         check (hoc_vi in ('cu_nhan', 'ky_su', 'thac_si', 'tien_si'))
 );
  
--- CAN_BO_TRUONG 
-create table CAN_BO_TRUONG (
+-- NHAN_VIEN_KHAC (lớp con của DOC_GIA, trước đây là CAN_BO_TRUONG)
+create table NHAN_VIEN_KHAC (
     ma_nguoi_dung   varchar(10)     not null,   -- D_MA_ND
-    ma_can_bo       varchar(20)     not null,   -- D_MA_NGHIEP_VU
+    ma_nhan_vien_khac varchar(20)   not null,   -- D_MA_NGHIEP_VU
     don_vi_cong_tac varchar(150)    null,       -- D_TEN
-    constraint pk_can_bo_truong primary key (ma_nguoi_dung),
-    constraint uq_can_bo_truong_ma_can_bo unique (ma_can_bo)
+    constraint pk_nhan_vien_khac primary key (ma_nguoi_dung),
+    constraint uq_nhan_vien_khac_ma_nhan_vien_khac unique (ma_nhan_vien_khac)
 );
  
 -- NHAN_VIEN
@@ -116,7 +116,7 @@ create table NHAN_VIEN (
         check (trang_thai_lam_viec in ('dang_lam', 'nghi_viec')),
     constraint chk_nhan_vien_luong_khong_am     
         check (luong_co_ban >= 0),
-    constraint chk_nhan_vien_khac_quan_ly       -- nhân viên không tự quản lý mình
+    constraint chk_nhan_vien_khong_tu_quan_ly   -- nhân viên không tự quản lý mình
         check (ma_nguoi_quan_ly <> ma_nguoi_dung)
 );
  
@@ -144,7 +144,7 @@ create table THAM_SO_HE_THONG (
     mo_ta           varchar(255)    null,       -- D_GHI_CHU
     constraint pk_tham_so_he_thong primary key (ma_tham_so, pham_vi_ap_dung),
     constraint chk_tham_so_pham_vi
-        check (pham_vi_ap_dung in ('sinh_vien', 'giang_vien', 'can_bo',
+        check (pham_vi_ap_dung in ('sinh_vien', 'giang_vien', 'nhan_vien_khac',
                                    'ca_sang', 'ca_chieu', 'ca_toi', 'tat_ca')),
 
     constraint chk_tham_so_dinh_dang check (
