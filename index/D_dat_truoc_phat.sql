@@ -12,3 +12,7 @@
 -- Việc cần làm:
 --   [ ] Chỉ mục cho các truy vấn hay dùng của mảng, ghi lý do chọn cột và thứ tự cột
 
+-- FR17 / BR12: lọc hàng đợi theo tài liệu, trạng thái;
+-- sắp xếp theo ngày đặt, dùng mã đặt trước để phân định khi trùng ngày.
+CREATE INDEX idx_dat_truoc_hang_doi
+ON DAT_TRUOC (ma_tai_lieu, trang_thai, ngay_dat, ma_dat_truoc);

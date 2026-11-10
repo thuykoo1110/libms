@@ -4,13 +4,26 @@
 
 ## Mốc thời gian
 
+Cô yêu cầu nộp **cả SQL (Phần 1, 2) và ứng dụng kết nối CSDL** vào **thứ 2, 16/11**. Buổi trình bày rơi vào giờ học sáng thứ 2, nên báo cáo phải in xong và CSDL, ứng dụng phải chạy sẵn trước buổi học.
+
 | Ngày | Việc |
 |---|---|
-| 2/11 | Khóa schema: thư mục `schema/` và `fk/` chạy được trên database trống. Sau ngày này, muốn đổi bảng phải báo cả nhóm |
-| 8/11 | Xong bản đầu của `seed/`, `functions/`, `procedures/`, `triggers/`, `queries/` |
-| 13/11 | Chạy toàn bộ từ database trống không lỗi, review chéo xong |
-| **16/11** | **Nộp và trình bày đợt 1** (bảng, dữ liệu, truy vấn, thủ tục) |
-| **30/11** | **Nộp và demo đợt 2** (ứng dụng kết nối CSDL) |
+| 2/11 | ✅ Khóa schema: `schema/` và `fk/` chạy được trên database trống. Sau ngày này, muốn đổi bảng phải báo cả nhóm |
+| 6/11 | `seed/A_` và `seed/B_` xong, vì C, D, E cần mã độc giả, nhân viên, bản sao |
+| 8/11 | Xong bản đầu của `seed/`, `functions/`, `procedures/`, `triggers/`, `queries/`, `index/`. Khung `app/` chạy được |
+| 11/11 | Toàn bộ SQL chạy trọn từ database trống không lỗi, mỗi mục có file `tests/` |
+| 12–13/11 | Làm màn hình ứng dụng gọi SQL của mảng mình. **13/11 chốt code**, Thùy chạy lại từ đầu, mọi người chụp ảnh từ bản đã ghép |
+| 14–15/11 | Viết phần báo cáo của mình, ghép báo cáo, tập hỏi đáp chéo, in |
+| **16/11** | **Nộp LMS, trình bày SQL và demo ứng dụng** |
+
+## Tiến độ hiện tại (4/11)
+
+- [x] `schema/`, `fk/`: đủ 31 bảng và khóa ngoại
+- [ ] `seed/`
+- [ ] `functions/`, `procedures/`, `triggers/`
+- [ ] `index/`, `queries/`
+- [ ] `tests/`, `demo/`
+- [ ] `app/`
 
 ## Phân công theo mảng
 
@@ -24,7 +37,54 @@ Mỗi người giữ **một mảng**. Trong mỗi thư mục, file của mảng
 | D – Đặt trước, phạt, đánh giá | Nguyễn Khang Kỳ | DAT_TRUOC, PHIEU_PHAT, DANH_GIA | 15–22 |
 | E – Ca trực, thống kê | Lê Quốc Linh | CA_TRUC, PHAN_CONG | 29–36 |
 
-Thùy còn giữ `run_all_mysql.sql`, `demo/`, ghép và chạy thử toàn bộ, viết báo cáo.
+Thùy còn giữ `run_all_mysql.sql`, `demo/`, khung `app/`, ghép và chạy thử toàn bộ, viết báo cáo, thuyết trình.
+
+## Hàng trong Bảng kê nhiệm vụ (đề xuất, cả nhóm xác nhận)
+
+Mẫu báo cáo của cô tính điểm từng người theo **các hàng mình đánh dấu trong Bảng kê nhiệm vụ**, mỗi hàng chỉ 1 người làm. Bảng kê chia theo loại việc (bảng, chỉ mục, truy vấn, trigger, thủ tục, hàm), nên phải ánh xạ từ mảng sang hàng:
+
+| Người (mảng) | Hàng trong Bảng kê | Điểm /20 |
+|---|---|---|
+| Thùy (A) | 1.1.a bảng phần 1 = các bảng mảng A; 2.1 thủ tục INSERT/UPDATE/DELETE trên THAM_SO_HE_THONG (FR37, M11) + demo 2.1; truy vấn GROUP BY thống kê lượt mượn theo đối tượng độc giả (FR36, M10) | 4.0 |
+| Phát (B) | 1.1.a bảng phần 2 = các bảng mảng B; 1.1.b trigger kiểm tra BR22, BR26, BR32, BR36; Hàm 2 đếm bản sao khả dụng theo thể loại kể cả thể loại con (FR07, M02); truy vấn tra cứu tài liệu (FR06, M02) | 3.75 |
+| Nhiên (C) | 1.1.b CHECK và trigger kiểm tra mảng C (BR30, BR34); Trigger 2 trên CHI_TIET_PHIEU_MUON, ảnh hưởng BAN_SAO và DAT_TRUOC; Thủ tục 1 `sp_lap_phieu_muon` (FR10, M05); truy vấn lịch sử mượn (FR09, M04) | 4.25 |
+| Kỳ (D) | Trigger 1 trên PHIEU_PHAT (BR17, BR35); Thủ tục 2 `sp_het_han_giu_cho` (FR17, BR12, BR14, chạy hằng ngày bằng MySQL EVENT); Hàm 1 `fn_phat_tam_tinh` (BR29, M04) | 4.0 |
+| Linh (E) | 1.2 chỉ mục + demo chỉ mục; 1.1 demo tạo bảng; truy vấn GROUP BY tiền phạt theo tháng (FR33); truy vấn 2 lồng nhau + hàm gộp (FR31) | 4.0 |
+
+Yêu cầu bắt buộc của cô cho từng loại:
+
+- **Truy vấn (5 câu, trên các bảng khác nhau):** 2 câu SELECT-FROM-WHERE-ORDER BY; 2 câu có thêm GROUP BY + hàm gộp; 1 câu có 2 truy vấn lồng + hàm gộp.
+- **Trigger (2):** 1 trigger trên 1 bảng, 1 trigger ảnh hưởng hơn 1 bảng. Trigger chỉ kiểm tra ràng buộc khai được trong CREATE TABLE (UNIQUE, NOT NULL, CHECK) **không được tính điểm**.
+- **Thủ tục 2.3 (2) và hàm 2.4 (2):** xử lý dữ liệu từ 1 hay nhiều bảng, **có câu lệnh điều kiện và vòng lặp**.
+- **Mỗi mục trong báo cáo:** nói rõ dùng cho FR nào, ở màn hình nào (M01–M12), có flowchart (trừ truy vấn), câu lệnh dạng text, ảnh chụp toàn màn hình DBMS có chú thích, ca lỗi và ca đúng.
+
+Các thủ tục, hàm khác trong danh sách việc của từng file (`sp_ghi_nhan_tra`, `sp_lap_phieu_nhap`, `sp_dang_ky_doc_gia`...) vẫn phải viết vì ứng dụng cần, và có thể đưa vào mục "Phần thêm" của báo cáo.
+
+## Ứng dụng (`app/`)
+
+Code **theo đúng đặc tả giao diện M01–M12 của BTL1** (trường dữ liệu, nút, phần "Khác LibMS"), vì cô đối chiếu demo với mô tả đó. Màn nào có SQL ở trên thì gọi đúng thủ tục, hàm, trigger đó, không viết lại logic trong code.
+
+- **Công nghệ:** Node.js + Express + thư viện `mysql2`, giao diện HTML/EJS đơn giản.
+- **Kiến trúc:** trình duyệt → Express (route, controller) → connection pool `mysql2` → MySQL. Mọi tham số truyền bằng `?` (chống SQL injection). Lỗi `SIGNAL` từ MySQL hiện nguyên thông báo có mã BR lên màn hình.
+- **Thông tin kết nối** để trong `app/.env` (đã có trong `.gitignore`, không commit).
+
+| Màn hình | Mảng | Người | Gọi tới | Ưu tiên |
+|---|---|---|---|---|
+| Khung dự án, `db.js`, layout | A | Thùy | | Bắt buộc |
+| M01 Đăng nhập (FR01) | A | Thùy | NGUOI_DUNG, NHAN_VIEN.chuc_vu, DOC_GIA | Bắt buộc |
+| M05 Quầy mượn trả (FR10–FR13) | C | Nhiên | `sp_lap_phieu_muon`, `sp_ghi_nhan_tra`, `sp_gia_han`, `sp_bao_mat_hu_hong` | Bắt buộc |
+| M06 Tài liệu và bản sao (FR23, FR24) | B | Phát | `sp_them_tai_lieu`, `sp_cap_nhat_ban_sao`, `sp_them_ban_sao` | Bắt buộc |
+| M10 Báo cáo (FR31–FR36) | E | Linh | các truy vấn thống kê | Bắt buộc |
+| M02 Tra cứu (FR06, FR07) | B | Phát | truy vấn tra cứu, Hàm 2 | Nên có |
+| M04 Trang độc giả (FR09, FR12, FR20) | D | Kỳ | truy vấn lịch sử mượn, `fn_phat_tam_tinh`, `sp_huy_dat_truoc` | Nên có |
+| M08 Phiếu phạt (FR18, FR19) | D | Kỳ | `sp_thu_phat`, `sp_huy_phieu_phat`, Trigger 1 | Nên có |
+| M11 Cấu hình quy định (FR37) | A | Thùy | thủ tục 2.1 trên THAM_SO_HE_THONG | Nên có |
+| M12 Đăng ký độc giả (FR02) | A | Thùy | `sp_dang_ky_doc_gia` | Nên có |
+| M03 Chi tiết tài liệu (FR08, FR15, FR21) | B | Phát | `sp_dat_truoc`, `sp_danh_gia` | Nếu kịp |
+| M07 Phiếu nhập (FR27, FR28) | B | Phát | `sp_lap_phieu_nhap` | Nếu kịp |
+| M09 Xếp lịch trực (FR29) | E | Linh | `sp_phan_cong` | Nếu kịp |
+
+Làm xong hết "Bắt buộc" mới sang "Nên có", rồi mới tới "Nếu kịp". Màn nào không kịp thì ghi rõ phạm vi demo trong báo cáo.
 
 ## Cấu trúc thư mục
 
@@ -40,6 +100,7 @@ libms/
 ├── queries/      truy vấn cho từng FR, chạy riêng khi demo
 ├── tests/        ca thử: đúng và bị chặn đúng BR, chạy riêng
 ├── demo/         kịch bản demo tại lớp
+├── app/          ứng dụng Node.js kết nối CSDL
 └── run_all_mysql.sql       dựng lại CSDL từ đầu (MySQL)
 ```
 
@@ -49,7 +110,23 @@ libms/
 
 ## Hệ quản trị CSDL
 
-- MySQL: `run_all_mysql.sql`
+- **MySQL 8.0.18 trở lên** (hoặc 8.4 LTS): `run_all_mysql.sql`. CHECK chỉ thật sự được kiểm tra từ 8.0.16, `EXPLAIN ANALYZE` có từ 8.0.18.
+
+### Lưu ý khi viết SQL cho MySQL
+
+Mẫu báo cáo của cô viết theo cú pháp SQL Server, nên có mấy chỗ khác:
+
+| Vấn đề | Cách làm |
+|---|---|
+| Mẫu ghi `CREATE OR ALTER` | MySQL không có. Dùng `DROP PROCEDURE/FUNCTION/TRIGGER IF EXISTS` rồi `CREATE` |
+| Viết thủ tục, hàm, trigger | Bọc trong `DELIMITER $$ ... $$ DELIMITER ;` |
+| Báo lỗi nghiệp vụ | `SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'BR10: ...'`, luôn mở đầu bằng mã BR |
+| CHECK không dùng được `CURDATE()`, truy vấn con, dữ liệu bảng khác | Ràng buộc kiểu này (ngày sinh trước hôm nay, năm xuất bản, so với bảng khác) làm bằng trigger |
+| Trigger không được sửa chính bảng đã kích hoạt nó (lỗi 1442) | Trigger trên bảng X chỉ sửa bảng khác X |
+| Trigger không được trả kết quả SELECT (lỗi 1415) | Thủ tục nào được trigger gọi thì không có SELECT trả kết quả |
+| Hàm chỉ trả 1 giá trị | Muốn trả bảng thì viết thủ tục |
+| Lỗi 1418 khi tạo hàm | Khai báo `READS SQL DATA` hoặc `DETERMINISTIC` |
+| InnoDB tự tạo chỉ mục cho cột khóa ngoại | Không chọn chỉ mục chỉ trên 1 cột khóa ngoại cho phần 1.2, vì đã có sẵn |
 
 ## Cài đặt lần đầu
 
@@ -74,6 +151,10 @@ mysql -u root -p --default-character-set=utf8mb4 < run_all_mysql.sql
 
 `run_all` **xóa database cũ rồi tạo lại từ đầu**, nên chạy bao nhiêu lần cũng được.
 
+### 3. Chạy ứng dụng
+
+Sẽ bổ sung khi có khung `app/`.
+
 ## Quy trình làm việc mỗi ngày
 
 1. **Pull trước khi làm**: GitHub Desktop bấm **Fetch origin → Pull**, hoặc `git pull`.
@@ -94,7 +175,8 @@ Nếu bị báo push lỗi do có người push trước: pull về rồi push l
 2. **Giữ đúng tên bảng, tên cột** như báo cáo BTL1 (chữ không dấu, gạch dưới). Không tự đổi tên.
 3. **Mỗi hàm, thủ tục, trigger ghi rõ BR nào** trong comment.
 4. **BR12 (phân bổ bản sao) chỉ viết một lần** trong `sp_phan_bo_ban_sao` của mảng D. Mảng B, C gọi thủ tục đó, không tự viết lại.
-5. **Trigger chỉ kiểm tra và giữ bất biến.** Logic nhiều bước đặt trong thủ tục.
+5. **Trigger kiểm tra và giữ bất biến.** Trigger được cập nhật bảng khác khi để giữ hai bảng khớp nhau (ví dụ Trigger 2: chèn dòng mượn thì bản sao chuyển "đang mượn"). Logic nhiều bước như lập phiếu phạt, phân bổ hàng đợi vẫn đặt trong thủ tục.
+6. **Đặt tên ràng buộc** theo kiểu `chk_<bang>_<y_nghia>`, `fk_...`, `uq_...`, để ảnh chụp báo lỗi đọc được ngay ràng buộc nào chặn.
 
 ## Quy ước mã dữ liệu mẫu
 
@@ -110,12 +192,44 @@ Mỗi mảng dùng khoảng mã riêng, để khóa chính không trùng và ng�
 
 Mảng A và B nên xong dữ liệu mẫu sớm, vì C, D, E cần mã độc giả, nhân viên và bản sao để viết dữ liệu của mình.
 
+## Việc đang mở
+
+- [ ] **C (Nhiên):** thêm CHECK `ma_nv_xu_ly <> ma_doc_gia` cho PHIEU_MUON (BR34, khai được trong CREATE TABLE); đặt tên cho các CHECK trong `schema/C_muon_tra.sql`
+- [ ] **E (Linh):** demo chỉ mục trước/sau bằng cùng một câu truy vấn, lần đầu thêm `IGNORE INDEX (idx_...)`. Cần thêm script sinh vài chục nghìn dòng riêng cho phần demo này, vì dữ liệu mẫu nhỏ thì thời gian chạy gần như không khác nhau
+- [ ] **Cả nhóm:** collation hiện tại `utf8mb4_unicode_ci` không phân biệt dấu (`'mat'` vẫn qua CHECK `IN ('mất', ...)`). Chốt giữ nguyên hay đổi sang `utf8mb4_0900_as_ci` trước khi viết seed
+- [ ] **Cả nhóm:** xác nhận bảng "Hàng trong Bảng kê nhiệm vụ" ở trên
+
+### Việc mới phát sinh từ đặc tả main 12
+
+Bản báo cáo main 12 thêm BR36, BR37 và sửa BR11, BR13, BR14, BR16, BR21, BR34, BR35 (xem phụ lục "Ghi chú thay đổi so với bản BTL1"). Các việc dưới đây không phải hàng chấm điểm riêng, nhưng thủ tục chấm điểm và ứng dụng dựa vào chúng. Mỗi người tự thêm vào danh sách việc ở đầu file của mảng mình.
+
+**B (Phát)**
+- [ ] Trigger BEFORE UPDATE trên BAN_SAO: tình trạng chỉ chuyển theo bước hợp lệ, không đổi khu vực khi đang mượn hoặc đang giữ chỗ (BR36). Gộp vào hàng 1.1.b vì phải so OLD với NEW nên CHECK không làm được
+- [ ] `sp_cap_nhat_ban_sao` cho M06: chặn sửa tay bản sao đang mượn, đang giữ chỗ; gọi `sp_phan_bo_ban_sao` khi bản sao về "sẵn sàng" ở khu mượn về (BR36, BR12, BR14)
+- [ ] `sp_them_tai_lieu` cho M06: chèn TAI_LIEU, VIET (tác giả chính), THUOC (thể loại) trong một transaction (BR37, BR26)
+
+**C (Nhiên)**
+- [ ] `sp_tim_lai_ban_sao`: sách báo mất được mang trả, hủy phiếu mất chưa thu, cập nhật dòng chi tiết bằng ngày mang trả, lập phiếu quá hạn nếu trả trễ, phân bổ bản sao (BR35, BR27, BR15). Gọi `sp_huy_phieu_phat`, `sp_lap_phieu_phat` của D
+- [ ] `sp_gia_han`: chỉ chặn khi tài liệu còn yêu cầu đặt trước "đang chờ"; nhân viên không gia hạn dòng mượn của chính mình (BR11, BR34)
+- [ ] `sp_ghi_nhan_tra`, `sp_bao_mat_hu_hong`: nhân viên ghi nhận khác độc giả của phiếu (BR34)
+
+**D (Kỳ)**
+- [ ] `sp_lap_phieu_phat`: phạt hư hỏng = MIN(mức cán bộ nhập, giá bìa, trần − phạt quá hạn), trần = tỷ lệ phạt mất × giá bìa (BR16)
+- [ ] `sp_dat_truoc`: độc giả phải thỏa BR05, BR10; không xét hạn mức BR06 (BR13)
+- [ ] `CREATE EVENT ev_het_han_giu_cho ON SCHEDULE EVERY 1 DAY DO CALL sp_het_han_giu_cho(NOW())` (BR14); thêm 1 dòng vào `run_all` sau phần thủ tục
+
+**C, D**
+- [ ] Mọi thủ tục lưu thông chỉ kiểm tra "nhân viên đang làm", không bắt buộc chức vụ cán bộ thư viện, vì quản trị viên cũng được đứng quầy (BR21)
+
 ## Quyết định đã chốt
 
 - [x] Hệ quản trị: **MySQL**
 - [x] Giá trị liệt kê: **có dấu** (`'hoạt động'`), giống báo cáo
-- [x] S1: nhân viên thư viện được mượn sách, chuyên biệt hóa NGUOI_DUNG đổi sang **chồng lấn** (o), thêm BR34
+- [x] S1: nhân viên thư viện được mượn sách, chuyên biệt hóa NGUOI_DUNG đổi sang **chồng lấn** (o), thêm BR34. Báo cáo BTL2 phải sửa câu ở mục 3.2.1 (đang ghi "rời nhau") và ghi vào bảng thay đổi ở Phụ lục
 - [x] S4: **không làm** THONG_BAO, đã ghi vào phạm vi
 - [x] S5: **có làm** hình thức nhập (mua, biếu tặng, nộp lưu chiểu), `ma_ncc` chỉ bắt buộc khi mua
 - [x] M3: tên cột người ghi nhận trả là `ma_nv_nhan_tra`
 - [x] S2: phiếu phạt có trạng thái `đã hủy` kèm `ly_do_huy` (BR35)
+- [x] Ứng dụng nộp cùng ngày **16/11**, code theo đặc tả giao diện M01–M12 của BTL1
+- [x] Thủ tục 1 chấm điểm là `sp_lap_phieu_muon` (FR10)
+- [x] Đặc tả nghiệp vụ chốt theo bản báo cáo **main 12**: thêm BR36 (bước chuyển tình trạng bản sao), BR37 (mỗi tài liệu có ít nhất 1 tác giả và 1 thể loại); `sp_tim_lai_ban_sao` thuộc mảng C
